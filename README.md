@@ -99,7 +99,7 @@ npm start
 ```
 
 6. **Access Application**
-- Open browser: `http://localhost:3010`
+- Open browser: `http://localhost:3020`
 - Login: `admin` / `admin123`
 
 ## 📁 **Project Structure**
@@ -193,7 +193,7 @@ DB_PORT=3306
 GEMINI_API_KEY=your_api_key_here
 
 # Server Configuration
-PORT=3010
+PORT=3020
 NODE_ENV=production
 ```
 

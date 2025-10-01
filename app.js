@@ -17,7 +17,7 @@ const aiRoutes = require('./src/routes/ai');
 const chatHistoryRoutes = require('./src/routes/chatHistory');
 
 const app = express();
-const PORT = process.env.PORT || 3010;
+const PORT = process.env.PORT || 3020;
 
 // Middleware
 app.use(cors());
