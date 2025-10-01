@@ -1,0 +1,114 @@
+<!-- Desktop Sidebar -->
+<div class="sidebar">
+    <nav class="sidebar-nav">
+        <!-- Main Section -->
+        <div class="nav-section">
+            <div class="nav-section-title">Main</div>
+            <a href="/dashboard" class="sidebar-nav-link" data-page="dashboard">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="sidebar-nav-link" data-page="import-data">
+                <i class="fas fa-file-upload"></i>
+                <span>Import Data</span>
+            </a>
+            <a href="#" class="sidebar-nav-link" data-page="data-templates">
+                <i class="fas fa-file-csv"></i>
+                <span>CSV Templates</span>
+            </a>
+        </div>
+
+        <!-- Analytics Section -->
+        <div class="nav-section">
+            <div class="nav-section-title">Analytics</div>
+            <a href="/statistics" class="sidebar-nav-link" data-page="statistics">
+                <i class="fas fa-chart-line"></i>
+                <span>CRM Analytics</span>
+            </a>
+            <a href="#" class="sidebar-nav-link" data-page="ai-analytics">
+                <i class="fas fa-robot"></i>
+                <span>AI Analytics</span>
+                <span class="badge bg-primary ms-auto">AI</span>
+            </a>
+        </div>
+
+        <!-- User Section -->
+        <div class="nav-section mt-auto">
+            <div class="sidebar-user-info">
+                <div class="user-avatar">
+                    <img src="https://ui-avatars.com/api/?name=Admin&size=32&background=1F3A93&color=fff" 
+                         alt="User Avatar" class="rounded-circle">
+                </div>
+                <div class="user-details">
+                    <div class="user-name">Admin User</div>
+                    <div class="user-role">Administrator</div>
+                </div>
+            </div>
+            <a href="#" class="sidebar-nav-link logout-link" id="sidebarLogout">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </nav>
+</div>
+
+<!-- Mobile Sidebar -->
+<div class="mobile-sidebar-overlay" id="mobileSidebarOverlay"></div>
+<div class="mobile-sidebar" id="mobileSidebar">
+    <div class="mobile-sidebar-header">
+        <div class="mobile-sidebar-brand">
+            <div class="brand-logo">
+                <div class="brand-icon">
+                    <i class="fas fa-arrow-up"></i>
+                </div>
+                <span>Vendra</span>
+            </div>
+            <button class="mobile-sidebar-close" id="mobileSidebarClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+    <nav class="mobile-sidebar-nav">
+        <div class="mobile-nav-section">
+            <div class="mobile-nav-section-title">Main</div>
+            <a href="/dashboard" class="mobile-sidebar-nav-link" data-page="dashboard">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="mobile-sidebar-nav-link" data-page="import-data">
+                <i class="fas fa-file-upload"></i>
+                <span>Import Data</span>
+            </a>
+            <a href="" class="mobile-sidebar-nav-link" data-page="data-templates">
+                <i class="fas fa-file-csv"></i>
+                <span>CSV Templates</span>
+            </a>
+        </div>
+        <div class="mobile-nav-section">
+            <div class="mobile-nav-section-title">Analytics</div>
+            <a href="/statistics" class="mobile-sidebar-nav-link" data-page="statistics">
+                <i class="fas fa-chart-line"></i>
+                <span>CRM Analytics</span>
+            </a>
+            <a href="#" class="mobile-sidebar-nav-link" data-page="ai-analytics">
+                <i class="fas fa-robot"></i>
+                <span>AI Analytics</span>
+                <span class="vendra-badge bg-primary">AI</span>
+            </a>
+        </div>
+        
+        <!-- Mobile User Section -->
+        <div class="mobile-nav-section">
+            <div class="mobile-nav-section-title">Account</div>
+            <div class="mobile-user-info">
+                <img src="https://ui-avatars.com/api/?name=Admin&size=24&background=1F3A93&color=fff" 
+                     alt="User Avatar" class="rounded-circle me-2">
+                <span>Admin User</span>
+            </div>
+            <a href="#" class="mobile-sidebar-nav-link logout-link" id="mobileLogout">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </nav>
+</div>

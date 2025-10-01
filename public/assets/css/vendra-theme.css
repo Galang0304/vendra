@@ -1,0 +1,393 @@
+/* Vendra CRM Theme - Color Palette */
+:root {
+    /* Primary Colors */
+    --vendra-primary: #1F3A93;        /* Biru tua - identitas utama */
+    --vendra-accent: #2ECC71;         /* Hijau toska - CTA & highlight */
+    --vendra-secondary: #F4F6F8;      /* Abu terang - background */
+    
+    /* Text Colors */
+    --vendra-text-primary: #2C3E50;   /* Hitam charcoal - teks utama */
+    --vendra-text-secondary: #7F8C8D; /* Abu medium - teks sekunder */
+    
+    /* UI Colors */
+    --vendra-border: #E5E7EB;         /* Abu muda - border */
+    --vendra-background: #FFFFFF;     /* Putih - konten utama */
+    --vendra-dark-bg: #1F2D3D;       /* Abu tua - dark mode */
+    
+    /* Status Colors */
+    --vendra-warning: #E67E22;        /* Oranye - warning */
+    --vendra-success: #27AE60;        /* Hijau - success */
+    --vendra-error: #E74C3C;          /* Merah - error */
+    
+    /* Gradients */
+    --vendra-gradient-primary: linear-gradient(135deg, #1F3A93 0%, #2ECC71 100%);
+    --vendra-gradient-dark: linear-gradient(135deg, #1F2D3D 0%, #1F3A93 100%);
+    --vendra-gradient-accent: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);
+    
+    /* Shadows */
+    --vendra-shadow-sm: 0 2px 4px rgba(31, 58, 147, 0.1);
+    --vendra-shadow-md: 0 4px 12px rgba(31, 58, 147, 0.15);
+    --vendra-shadow-lg: 0 8px 25px rgba(31, 58, 147, 0.2);
+    --vendra-shadow-xl: 0 20px 40px rgba(31, 58, 147, 0.25);
+    
+    /* Border Radius */
+    --vendra-radius-sm: 6px;
+    --vendra-radius-md: 12px;
+    --vendra-radius-lg: 16px;
+    --vendra-radius-xl: 24px;
+    
+    /* Transitions */
+    --vendra-transition-fast: 150ms ease-in-out;
+    --vendra-transition-normal: 300ms ease-in-out;
+    --vendra-transition-slow: 500ms ease-in-out;
+    
+    /* Typography */
+    --vendra-font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    --vendra-font-weight-normal: 400;
+    --vendra-font-weight-medium: 500;
+    --vendra-font-weight-semibold: 600;
+    --vendra-font-weight-bold: 700;
+}
+
+/* Base Styles */
+body {
+    font-family: var(--vendra-font-family);
+    color: var(--vendra-text-primary);
+    background-color: var(--vendra-secondary);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Utility Classes */
+.vendra-primary { color: var(--vendra-primary) !important; }
+.vendra-accent { color: var(--vendra-accent) !important; }
+.vendra-success { color: var(--vendra-success) !important; }
+.vendra-warning { color: var(--vendra-warning) !important; }
+.vendra-error { color: var(--vendra-error) !important; }
+
+.vendra-bg-primary { background-color: var(--vendra-primary) !important; }
+.vendra-bg-accent { background-color: var(--vendra-accent) !important; }
+.vendra-bg-secondary { background-color: var(--vendra-secondary) !important; }
+.vendra-bg-white { background-color: var(--vendra-background) !important; }
+
+.vendra-border { border-color: var(--vendra-border) !important; }
+.vendra-shadow-sm { box-shadow: var(--vendra-shadow-sm) !important; }
+.vendra-shadow-md { box-shadow: var(--vendra-shadow-md) !important; }
+.vendra-shadow-lg { box-shadow: var(--vendra-shadow-lg) !important; }
+
+.vendra-rounded-sm { border-radius: var(--vendra-radius-sm) !important; }
+.vendra-rounded-md { border-radius: var(--vendra-radius-md) !important; }
+.vendra-rounded-lg { border-radius: var(--vendra-radius-lg) !important; }
+
+/* Button Styles */
+.btn-vendra-primary {
+    background: var(--vendra-gradient-primary);
+    border: none;
+    color: white;
+    font-weight: var(--vendra-font-weight-semibold);
+    border-radius: var(--vendra-radius-md);
+    transition: var(--vendra-transition-normal);
+    box-shadow: var(--vendra-shadow-sm);
+}
+
+.btn-vendra-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--vendra-shadow-lg);
+    color: white;
+}
+
+.btn-vendra-accent {
+    background: var(--vendra-gradient-accent);
+    border: none;
+    color: white;
+    font-weight: var(--vendra-font-weight-semibold);
+    border-radius: var(--vendra-radius-md);
+    transition: var(--vendra-transition-normal);
+    box-shadow: var(--vendra-shadow-sm);
+}
+
+.btn-vendra-accent:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--vendra-shadow-lg);
+    color: white;
+}
+
+.btn-vendra-outline {
+    background: transparent;
+    border: 2px solid var(--vendra-primary);
+    color: var(--vendra-primary);
+    font-weight: var(--vendra-font-weight-semibold);
+    border-radius: var(--vendra-radius-md);
+    transition: var(--vendra-transition-normal);
+}
+
+.btn-vendra-outline:hover {
+    background: var(--vendra-primary);
+    color: white;
+}
+
+/* Card Styles */
+.vendra-card {
+    background: var(--vendra-background);
+    border-radius: var(--vendra-radius-lg);
+    box-shadow: var(--vendra-shadow-md);
+    border: 1px solid var(--vendra-border);
+    transition: var(--vendra-transition-normal);
+}
+
+.vendra-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--vendra-shadow-lg);
+}
+
+.vendra-card-header {
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid var(--vendra-border);
+}
+
+.vendra-card-body {
+    padding: 24px;
+}
+
+.vendra-card-footer {
+    padding: 16px 24px 20px;
+    border-top: 1px solid var(--vendra-border);
+    background: var(--vendra-secondary);
+    border-radius: 0 0 var(--vendra-radius-lg) var(--vendra-radius-lg);
+}
+
+/* Form Styles */
+.vendra-form-control {
+    border: 2px solid var(--vendra-border);
+    border-radius: var(--vendra-radius-md);
+    padding: 12px 16px;
+    font-size: 14px;
+    transition: var(--vendra-transition-normal);
+    background: var(--vendra-background);
+    color: var(--vendra-text-primary);
+}
+
+.vendra-form-control:focus {
+    border-color: var(--vendra-primary);
+    box-shadow: 0 0 0 3px rgba(31, 58, 147, 0.1);
+    outline: none;
+}
+
+.vendra-form-label {
+    color: var(--vendra-text-primary);
+    font-weight: var(--vendra-font-weight-medium);
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* Badge Styles */
+.vendra-badge {
+    padding: 4px 12px;
+    border-radius: var(--vendra-radius-sm);
+    font-size: 12px;
+    font-weight: var(--vendra-font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.vendra-badge-accent { background: var(--vendra-accent); color: white; }
+.vendra-badge-success { background: var(--vendra-success); color: white; }
+.vendra-badge-warning { background: var(--vendra-warning); color: white; }
+.vendra-badge-error { background: var(--vendra-error); color: white; }
+
+/* Brand Logo */
+.brand-logo {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: white;
+    text-decoration: none;
+}
+
+.brand-logo-img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    margin-right: 12px;
+    filter: brightness(0) invert(1);
+    transition: all 0.3s ease;
+}
+
+.brand-logo-img:hover {
+    transform: scale(1.05);
+}
+
+.brand-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    font-size: 18px;
+}
+
+/* Navbar User Info */
+.navbar-user {
+    margin-left: auto;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.user-name {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.user-role {
+    font-size: 11px;
+    opacity: 0.8;
+    line-height: 1;
+}
+
+/* Sidebar User Info */
+.sidebar-user-info {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    margin: 16px 0;
+    background: rgba(31, 58, 147, 0.1);
+    border-radius: 12px;
+    border: 1px solid rgba(31, 58, 147, 0.2);
+}
+
+.sidebar-user-info .user-avatar {
+    margin-right: 12px;
+}
+
+.sidebar-user-info .user-details {
+    align-items: flex-start;
+}
+
+.sidebar-user-info .user-name {
+    color: var(--vendra-text);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.sidebar-user-info .user-role {
+    color: var(--vendra-text-secondary);
+    font-size: 11px;
+}
+
+.logout-link {
+    color: #dc3545 !important;
+    margin-top: 8px;
+}
+
+.logout-link:hover {
+    background: rgba(220, 53, 69, 0.1) !important;
+    color: #dc3545 !important;
+}
+
+/* Mobile User Info */
+.mobile-user-info {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    margin: 8px 0;
+    background: rgba(31, 58, 147, 0.1);
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--vendra-text);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .user-details {
+        display: none;
+    }
+}
+
+.vendra-alert-warning {
+    background: rgba(230, 126, 34, 0.1);
+    border-left-color: var(--vendra-warning);
+}
+
+.vendra-alert-error {
+    background: rgba(231, 76, 60, 0.1);
+    border-left-color: var(--vendra-error);
+    color: var(--vendra-error);
+}
+
+/* Table Styles */
+.vendra-table {
+    background: var(--vendra-background);
+    border-radius: var(--vendra-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--vendra-shadow-md);
+}
+
+.vendra-table th {
+    background: var(--vendra-secondary);
+    color: var(--vendra-text-primary);
+    font-weight: var(--vendra-font-weight-semibold);
+    padding: 16px;
+    border-bottom: 2px solid var(--vendra-border);
+}
+
+.vendra-table td {
+    padding: 16px;
+    border-bottom: 1px solid var(--vendra-border);
+    color: var(--vendra-text-primary);
+}
+
+.vendra-table tr:hover {
+    background: var(--vendra-secondary);
+}
+
+/* Loading Spinner */
+.vendra-spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid var(--vendra-border);
+    border-top: 3px solid var(--vendra-primary);
+    border-radius: 50%;
+    animation: vendra-spin 1s linear infinite;
+}
+
+@keyframes vendra-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive Utilities */
+@media (max-width: 768px) {
+    .vendra-card-body {
+        padding: 16px;
+    }
+    
+    .vendra-card-header,
+    .vendra-card-footer {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}

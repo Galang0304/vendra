@@ -1,0 +1,381 @@
+/* Vendra Statistics Page Styles */
+
+/* Statistics Header */
+.statistics-header {
+    background: var(--vendra-gradient-primary);
+    color: white;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+    border-radius: var(--vendra-radius-lg);
+}
+
+.statistics-header h1 {
+    font-weight: var(--vendra-font-weight-bold);
+    margin-bottom: 0.5rem;
+}
+
+.statistics-header p {
+    opacity: 0.9;
+    font-size: 1.1rem;
+}
+
+/* Enhanced Stats Cards for Statistics Page */
+.stats-card-enhanced {
+    background: var(--vendra-background);
+    border-radius: var(--vendra-radius-xl);
+    padding: 2rem;
+    box-shadow: var(--vendra-shadow-lg);
+    border: 1px solid var(--vendra-border);
+    transition: var(--vendra-transition-normal);
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}
+
+.stats-card-enhanced::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--vendra-gradient-accent);
+}
+
+.stats-card-enhanced:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--vendra-shadow-xl);
+}
+
+.stats-card-enhanced .stats-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: var(--vendra-radius-lg);
+    margin-bottom: 1.5rem;
+    font-size: 32px;
+}
+
+.stats-card-enhanced .stats-number {
+    font-size: 2.5rem;
+    font-weight: var(--vendra-font-weight-bold);
+    color: var(--vendra-text-primary);
+    margin-bottom: 0.5rem;
+    line-height: 1;
+}
+
+.stats-card-enhanced .stats-label {
+    font-size: 0.875rem;
+    font-weight: var(--vendra-font-weight-semibold);
+    color: var(--vendra-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+}
+
+.stats-card-enhanced .stats-change {
+    font-size: 0.875rem;
+    font-weight: var(--vendra-font-weight-medium);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Chart Cards */
+.chart-card {
+    background: var(--vendra-background);
+    border-radius: var(--vendra-radius-xl);
+    box-shadow: var(--vendra-shadow-lg);
+    border: 1px solid var(--vendra-border);
+    overflow: hidden;
+    height: 100%;
+}
+
+.chart-card-header {
+    background: linear-gradient(135deg, var(--vendra-secondary) 0%, rgba(244, 246, 248, 0.5) 100%);
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--vendra-border);
+}
+
+.chart-card-header h6 {
+    font-weight: var(--vendra-font-weight-semibold);
+    color: var(--vendra-text-primary);
+    margin: 0;
+}
+
+.chart-card-body {
+    padding: 2rem;
+}
+
+/* Time Range Selector */
+.time-range-selector {
+    background: var(--vendra-background);
+    border: 2px solid var(--vendra-border);
+    border-radius: var(--vendra-radius-lg);
+    padding: 0.5rem;
+    transition: var(--vendra-transition-fast);
+}
+
+.time-range-selector:focus {
+    border-color: var(--vendra-primary);
+    box-shadow: 0 0 0 0.2rem rgba(31, 58, 147, 0.25);
+}
+
+/* Export Button */
+.export-btn {
+    background: var(--vendra-gradient-accent);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--vendra-radius-md);
+    font-weight: var(--vendra-font-weight-semibold);
+    transition: var(--vendra-transition-fast);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.export-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--vendra-shadow-lg);
+    color: white;
+}
+
+/* Progress Bars Enhanced */
+.progress-enhanced {
+    height: 10px;
+    border-radius: var(--vendra-radius-sm);
+    background: var(--vendra-secondary);
+    overflow: hidden;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.progress-enhanced .progress-bar {
+    border-radius: var(--vendra-radius-sm);
+    transition: width 0.6s ease;
+    position: relative;
+}
+
+.progress-enhanced .progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255,255,255,0.2) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.2) 75%, transparent 75%, transparent);
+    background-size: 20px 20px;
+    animation: progress-stripes 1s linear infinite;
+}
+
+@keyframes progress-stripes {
+    0% { background-position: 0 0; }
+    100% { background-position: 20px 0; }
+}
+
+/* Table Enhancements */
+.table-enhanced {
+    background: var(--vendra-background);
+    border-radius: var(--vendra-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--vendra-shadow-md);
+}
+
+.table-enhanced thead th {
+    background: var(--vendra-secondary);
+    color: var(--vendra-text-primary);
+    font-weight: var(--vendra-font-weight-semibold);
+    padding: 1rem;
+    border: none;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.table-enhanced tbody td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--vendra-border);
+    color: var(--vendra-text-primary);
+    vertical-align: middle;
+}
+
+.table-enhanced tbody tr:hover {
+    background: var(--vendra-secondary);
+}
+
+.table-enhanced tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Product Icons in Table */
+.product-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--vendra-radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: white;
+    margin-right: 0.75rem;
+}
+
+/* Regional Analysis */
+.region-item {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--vendra-border);
+}
+
+.region-item:last-child {
+    border-bottom: none;
+}
+
+.region-name {
+    font-weight: var(--vendra-font-weight-semibold);
+    color: var(--vendra-text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.region-value {
+    font-weight: var(--vendra-font-weight-bold);
+    color: var(--vendra-primary);
+}
+
+/* Customer Segment Cards */
+.segment-card {
+    background: var(--vendra-background);
+    border: 1px solid var(--vendra-border);
+    border-radius: var(--vendra-radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: var(--vendra-transition-fast);
+}
+
+.segment-card:hover {
+    box-shadow: var(--vendra-shadow-md);
+    transform: translateY(-2px);
+}
+
+.segment-title {
+    font-weight: var(--vendra-font-weight-semibold);
+    color: var(--vendra-text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.segment-percentage {
+    font-size: 1.5rem;
+    font-weight: var(--vendra-font-weight-bold);
+    color: var(--vendra-primary);
+}
+
+/* Peak Hours Indicators */
+.peak-indicator {
+    background: var(--vendra-secondary);
+    border-radius: var(--vendra-radius-md);
+    padding: 1rem;
+    text-align: center;
+    border: 1px solid var(--vendra-border);
+}
+
+.peak-value {
+    font-size: 1.25rem;
+    font-weight: var(--vendra-font-weight-bold);
+    color: var(--vendra-primary);
+    margin-bottom: 0.25rem;
+}
+
+.peak-label {
+    font-size: 0.875rem;
+    color: var(--vendra-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Loading States */
+.chart-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    color: var(--vendra-text-secondary);
+}
+
+.chart-loading .vendra-spinner {
+    margin-right: 1rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+    .stats-card-enhanced .stats-number {
+        font-size: 2rem;
+    }
+    
+    .chart-card-body {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .statistics-header {
+        padding: 1.5rem 0;
+        margin-bottom: 1.5rem;
+    }
+    
+    .stats-card-enhanced {
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .stats-card-enhanced .stats-number {
+        font-size: 1.75rem;
+    }
+    
+    .chart-card-body {
+        padding: 1rem;
+    }
+    
+    .table-enhanced thead th,
+    .table-enhanced tbody td {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.875rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .stats-card-enhanced .stats-icon {
+        width: 56px;
+        height: 56px;
+        font-size: 24px;
+    }
+    
+    .stats-card-enhanced .stats-number {
+        font-size: 1.5rem;
+    }
+    
+    .export-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+    }
+}
+
+/* Animation for stats cards */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stats-card-enhanced {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.stats-card-enhanced:nth-child(1) { animation-delay: 0.1s; }
+.stats-card-enhanced:nth-child(2) { animation-delay: 0.2s; }
+.stats-card-enhanced:nth-child(3) { animation-delay: 0.3s; }
+.stats-card-enhanced:nth-child(4) { animation-delay: 0.4s; }
+.stats-card-enhanced:nth-child(5) { animation-delay: 0.5s; }
+.stats-card-enhanced:nth-child(6) { animation-delay: 0.6s; }

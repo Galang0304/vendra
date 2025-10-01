@@ -1,0 +1,320 @@
+/* Modern Login Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body.login-page {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 420px;
+}
+
+.login-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 40px 32px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.login-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Brand Header */
+.brand-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.brand-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+}
+
+.brand-icon i {
+    font-size: 28px;
+    color: white;
+}
+
+.brand-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 8px;
+}
+
+.brand-subtitle {
+    font-size: 14px;
+    color: #718096;
+    margin: 0;
+}
+
+/* Form Styles */
+.login-form {
+    margin-bottom: 24px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #a0aec0;
+    font-size: 16px;
+    z-index: 2;
+    transition: color 0.3s ease;
+}
+
+.form-control {
+    width: 100%;
+    padding: 16px 16px 16px 48px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 16px;
+    background: #ffffff;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.form-control:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-control:focus + .input-icon {
+    color: #667eea;
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+/* Custom Checkbox */
+.remember-me {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    color: #4a5568;
+    user-select: none;
+}
+
+.remember-me input[type="checkbox"] {
+    display: none;
+}
+
+.checkmark {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #e2e8f0;
+    border-radius: 4px;
+    margin-right: 8px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.remember-me input[type="checkbox"]:checked + .checkmark {
+    background: #667eea;
+    border-color: #667eea;
+}
+
+.remember-me input[type="checkbox"]:checked + .checkmark::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* Login Button */
+.btn-login {
+    width: 100%;
+    padding: 16px 24px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-login:active {
+    transform: translateY(0);
+}
+
+.btn-login:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-icon {
+    transition: transform 0.3s ease;
+}
+
+.btn-login:hover .btn-icon {
+    transform: translateX(4px);
+}
+
+/* Demo Info */
+.demo-info {
+    text-align: center;
+    padding-top: 24px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.demo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #f7fafc;
+    color: #4a5568;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+.demo-credentials {
+    font-size: 13px;
+    color: #718096;
+    background: #f8f9fa;
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.loading-spinner {
+    text-align: center;
+    color: white;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 16px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Alert Styles */
+.alert {
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.alert-success {
+    background: #f0fff4;
+    color: #22543d;
+    border: 1px solid #9ae6b4;
+}
+
+.alert-danger {
+    background: #fed7d7;
+    color: #742a2a;
+    border: 1px solid #feb2b2;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .login-card {
+        padding: 32px 24px;
+        margin: 16px;
+    }
+    
+    .brand-title {
+        font-size: 20px;
+    }
+    
+    .form-control {
+        padding: 14px 14px 14px 44px;
+        font-size: 16px;
+    }
+    
+    .btn-login {
+        padding: 14px 20px;
+        font-size: 15px;
+    }
+}

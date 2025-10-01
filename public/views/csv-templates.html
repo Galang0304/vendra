@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV Templates - Vendra CRM</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="/assets/css/vendra-theme.css" rel="stylesheet">
+    <link href="/assets/css/dashboard.css" rel="stylesheet">
+    <link href="/assets/css/mobile.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Vendra Navbar Component -->
+    <div id="navbar-container"></div>
+
+    <!-- Sidebar will be loaded by sidebar.js -->
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Page Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h4 class="mb-1 vendra-primary">CSV Templates</h4>
+                <p class="text-muted mb-0">Download sample CSV templates for data import</p>
+            </div>
+            <div class="d-flex gap-2">
+                <a href="/import-data" class="btn btn-primary">
+                    <i class="fas fa-file-upload me-1"></i>Import Data
+                </a>
+            </div>
+        </div>
+
+        <!-- Import Template -->
+        <div class="row justify-content-center mb-4">
+            <div class="col-lg-8">
+                <div class="vendra-card">
+                    <div class="vendra-card-header">
+                        <div class="d-flex align-items-center">
+                            <div class="template-icon me-3">
+                                <i class="fas fa-file-csv text-success"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">Customer Transactions Template</h6>
+                                <small class="text-muted">Template untuk import data transaksi pelanggan ke sistem CRM</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vendra-card-body">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <h6 class="text-primary mb-2"><i class="fas fa-columns me-1"></i>Kolom yang Diperlukan:</h6>
+                                <ul class="list-unstyled small">
+                                    <li><i class="fas fa-check text-success me-1"></i><code>unique_customer_id</code> - ID unik pelanggan</li>
+                                    <li><i class="fas fa-check text-success me-1"></i><code>customer_name</code> - Nama lengkap pelanggan</li>
+                                    <li><i class="fas fa-check text-success me-1"></i><code>customer_email</code> - Email valid</li>
+                                    <li><i class="fas fa-check text-success me-1"></i><code>customer_phone</code> - Nomor telepon</li>
+                                    <li><i class="fas fa-check text-success me-1"></i><code>product_type</code> - Kategori produk</li>
+                                    <li><i class="fas fa-check text-success me-1"></i><code>product_name</code> - Nama produk</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="list-unstyled small">
+                                    <li><i class="fas fa-check text-success me-1"></i><code>quantity</code> - Jumlah pembelian</li>
+                                    <li><i class="fas fa-check text-success me-1"></i><code>unit_price</code> - Harga per unit</li>
+                                    <li><i class="fas fa-check text-success me-1"></i><code>total_amount</code> - Total transaksi</li>
+                                    <li><i class="fas fa-check text-success me-1"></i><code>transaction_date</code> - Tanggal transaksi</li>
+                                    <li><i class="fas fa-check text-success me-1"></i><code>payment_method</code> - Metode pembayaran</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-warning mb-3">
+                            <h6 class="alert-heading"><i class="fas fa-exclamation-triangle me-1"></i>Format Penting:</h6>
+                            <ul class="mb-0 small">
+                                <li><strong>Tanggal:</strong> <code>YYYY-MM-DD HH:MM:SS</code> (contoh: 2024-01-15 10:30:00)</li>
+                                <li><strong>Email:</strong> Format valid (contoh@email.com)</li>
+                                <li><strong>Harga:</strong> Angka murni tanpa titik/koma (contoh: 8500000)</li>
+                                <li><strong>Payment Method:</strong> credit_card, bank_transfer, cash, e_wallet</li>
+                                <li><strong>Jangan ubah nama kolom header!</strong></li>
+                            </ul>
+                        </div>
+
+                        <div class="row g-2">
+                            <div class="col-md-6">
+                                <div class="d-grid">
+                                    <button class="btn btn-success btn-lg" onclick="downloadCustomerTemplate()">
+                                        <i class="fas fa-download me-2"></i>Template Sederhana
+                                        <small class="d-block">Siap pakai dengan contoh</small>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-grid">
+                                    <button class="btn btn-primary btn-lg" onclick="downloadCustomerTemplateWithGuide()">
+                                        <i class="fas fa-file-alt me-2"></i>Template + Panduan
+                                        <small class="d-block">Dengan instruksi lengkap</small>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How to Use Guide -->
+        <div class="row">
+            <div class="col-12">
+                <div class="vendra-card">
+                    <div class="vendra-card-header">
+                        <h6 class="mb-0">
+                            <i class="fas fa-question-circle me-2"></i>Cara Menggunakan Template
+                        </h6>
+                    </div>
+                    <div class="vendra-card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 class="text-primary mb-3"><i class="fas fa-list-ol me-1"></i>Langkah-langkah:</h6>
+                                <div class="step-list">
+                                    <div class="step-item mb-3">
+                                        <div class="step-number">1</div>
+                                        <div class="step-content">
+                                            <strong>Download Template</strong><br>
+                                            <small class="text-muted">Klik tombol download untuk mendapatkan file CSV template</small>
+                                        </div>
+                                    </div>
+                                    <div class="step-item mb-3">
+                                        <div class="step-number">2</div>
+                                        <div class="step-content">
+                                            <strong>Buka dengan Excel/Spreadsheet</strong><br>
+                                            <small class="text-muted">Buka file dengan Microsoft Excel, Google Sheets, atau LibreOffice Calc</small>
+                                        </div>
+                                    </div>
+                                    <div class="step-item mb-3">
+                                        <div class="step-number">3</div>
+                                        <div class="step-content">
+                                            <strong>Isi Data Anda</strong><br>
+                                            <small class="text-muted">Ganti data contoh dengan data real Anda, jangan ubah header kolom</small>
+                                        </div>
+                                    </div>
+                                    <div class="step-item mb-3">
+                                        <div class="step-number">4</div>
+                                        <div class="step-content">
+                                            <strong>Save as CSV</strong><br>
+                                            <small class="text-muted">Simpan file dalam format CSV (UTF-8) untuk kompatibilitas terbaik</small>
+                                        </div>
+                                    </div>
+                                    <div class="step-item mb-0">
+                                        <div class="step-number">5</div>
+                                        <div class="step-content">
+                                            <strong>Upload ke Import Data</strong><br>
+                                            <small class="text-muted">Kembali ke halaman Import Data dan upload file CSV Anda</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="text-danger mb-3"><i class="fas fa-exclamation-circle me-1"></i>Tips & Peringatan:</h6>
+                                <div class="alert alert-info">
+                                    <strong><i class="fas fa-lightbulb me-1"></i>Tips:</strong>
+                                    <ul class="mb-0 mt-2">
+                                        <li>Validasi data sebelum upload</li>
+                                        <li>Cek format tanggal dan angka</li>
+                                        <li>Pastikan email valid</li>
+                                        <li>Test dengan data kecil dulu</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="alert alert-warning">
+                                    <strong><i class="fas fa-exclamation-triangle me-1"></i>Peringatan:</strong>
+                                    <ul class="mb-0 mt-2">
+                                        <li>Jangan ubah nama kolom header</li>
+                                        <li>Harga harus berupa angka murni</li>
+                                        <li>Format tanggal: YYYY-MM-DD HH:MM:SS</li>
+                                        <li>File maksimal 5MB</li>
+                                    </ul>
+                                </div>
+
+                                <div class="alert alert-success">
+                                    <strong><i class="fas fa-check-circle me-1"></i>Hasil yang Diharapkan:</strong>
+                                    <ul class="mb-0 mt-2">
+                                        <li>Data ter-import dengan benar</li>
+                                        <li>Statistik terupdate otomatis</li>
+                                        <li>History import tersimpan</li>
+                                        <li>Laporan hasil import tersedia</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/error-logger.js"></script>
+    <script src="/assets/js/navbar.js"></script>
+    <script src="/assets/js/sidebar.js"></script>
+
+    <script>
+        // Template download function
+        function downloadCustomerTemplate() {
+            window.location.href = '/api/import/template/customer-transactions';
+            showToast('Template Download', 'Template CSV sedang didownload...', 'success');
+        }
+
+        function showToast(title, message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+            toast.style.cssText = 'top: 90px; right: 20px; z-index: 9999; min-width: 300px;';
+            toast.innerHTML = `
+                <strong>${title}</strong><br>
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.remove();
+                }
+            }, 5000);
+        }
+
+        // CSS for steps
+        const style = document.createElement('style');
+        style.textContent = `
+            .step-list {
+                padding-left: 0;
+            }
+            .step-item {
+                display: flex;
+                align-items: flex-start;
+            }
+            .step-number {
+                background: var(--vendra-primary);
+                color: white;
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+                font-size: 14px;
+                margin-right: 15px;
+                flex-shrink: 0;
+            }
+            .step-content {
+                flex: 1;
+                padding-top: 2px;
+            }
+            .template-icon {
+                width: 48px;
+                height: 48px;
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: linear-gradient(135deg, #f8f9ff 0%, #e8f0ff 100%);
+                font-size: 20px;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Download template functions
+        function downloadSimpleTemplate() {
+            showLoading();
+            fetch('/api/import/template/customer-transactions', {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to download template');
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'customer-transactions-template.csv';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+                
+                showAlert('Template sederhana berhasil didownload!', 'success');
+            })
+            .catch(error => {
+                console.error('Download error:', error);
+                showAlert('Gagal mendownload template: ' + error.message, 'danger');
+            })
+            .finally(() => {
+                hideLoading();
+            });
+        }
+
+        function downloadGuidedTemplate() {
+            showLoading();
+            fetch('/api/import/template/customer-transactions-guide', {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to download guided template');
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'customer-transactions-guide-template.csv';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+                
+                showAlert('Template dengan panduan berhasil didownload!', 'success');
+            })
+            .catch(error => {
+                console.error('Download error:', error);
+                showAlert('Gagal mendownload template: ' + error.message, 'danger');
+            })
+            .finally(() => {
+                hideLoading();
+            });
+        }
+
+        // Utility functions
+        function showLoading() {
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                if (btn.innerHTML.includes('Download')) {
+                    btn.innerHTML = btn.innerHTML.replace('Download', '<i class="fas fa-spinner fa-spin"></i> Loading');
+                }
+            });
+        }
+
+        function hideLoading() {
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(btn => {
+                btn.disabled = false;
+                if (btn.innerHTML.includes('Loading')) {
+                    btn.innerHTML = btn.innerHTML.replace('<i class="fas fa-spinner fa-spin"></i> Loading', 'Download');
+                }
+            });
+        }
+
+        function showAlert(message, type) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+            alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+            alertDiv.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            document.body.appendChild(alertDiv);
+            
+            setTimeout(() => {
+                if (alertDiv.parentNode) {
+                    alertDiv.remove();
+                }
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

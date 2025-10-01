@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Analytics - Vendra CRM</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="/assets/css/vendra-theme.css" rel="stylesheet">
+    <link href="/assets/css/dashboard.css" rel="stylesheet">
+    <link href="/assets/css/mobile.css" rel="stylesheet">
+    <style>
+        .ai-chat-container {
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+            background: #f8f9fa;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: white;
+        }
+
+        .chat-input-container {
+            padding: 15px;
+            background: #f8f9fa;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .chat-message {
+            display: flex;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+
+        .chat-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .chat-avatar.ai {
+            background: linear-gradient(135deg, #1F3A93 0%, #4A90E2 100%);
+            color: white;
+        }
+
+        .chat-avatar.user {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+        }
+
+        .chat-bubble {
+            background: white;
+            border-radius: 18px;
+            padding: 16px 20px;
+            max-width: 75%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 1px solid #e9ecef;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .chat-bubble h1, .chat-bubble h2, .chat-bubble h3, 
+        .chat-bubble h4, .chat-bubble h5, .chat-bubble h6 {
+            margin: 8px 0 4px 0;
+            font-weight: 600;
+        }
+
+        .chat-bubble ul, .chat-bubble ol {
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+
+        .chat-bubble li {
+            margin: 4px 0;
+        }
+
+        .chat-bubble strong {
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .chat-bubble p {
+            margin: 8px 0;
+        }
+
+        .chat-bubble.ai {
+            background: #f8f9ff;
+            border-color: #e3e8f0;
+        }
+
+        .chat-bubble.user {
+            background: #e8f5e8;
+            border-color: #d4edda;
+        }
+
+        .typing-indicator {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .typing-dots {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .typing-dots span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #6c757d;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Chat History Styles */
+        .chat-history-item {
+            padding: 12px 16px;
+            border-bottom: 1px solid #e9ecef;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .chat-history-item:hover {
+            background: #f8f9fa;
+        }
+
+        .chat-history-item.active {
+            background: #e3f2fd;
+            border-left: 4px solid var(--vendra-primary);
+        }
+
+        .chat-history-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #2d3748;
+            margin-bottom: 4px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .chat-history-meta {
+            font-size: 12px;
+            color: #6c757d;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-history-date {
+            font-size: 11px;
+        }
+
+        .chat-history-count {
+            background: #e9ecef;
+            color: #6c757d;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 10px;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px 12px 0 0;
+        }
+        
+        .chat-message {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .chat-message.user {
+            flex-direction: row-reverse;
+        }
+        
+        .chat-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 12px;
+            flex-shrink: 0;
+        }
+        
+        .chat-avatar.ai {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .chat-avatar.user {
+            background: var(--vendra-primary);
+            color: white;
+        }
+        
+        .chat-bubble {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            position: relative;
+        }
+        
+        .chat-bubble.ai {
+            background: white;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .chat-bubble.user {
+            background: var(--vendra-primary);
+            color: white;
+        }
+        
+        .chat-input-area {
+            padding: 20px;
+            background: white;
+            border-radius: 0 0 12px 12px;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .typing-indicator {
+            display: none;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .typing-dots {
+            display: flex;
+            align-items: center;
+            margin-left: 12px;
+        }
+        
+        .typing-dots span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #6c757d;
+            margin: 0 2px;
+            animation: typing 1.4s infinite;
+        }
+        
+        .typing-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.5;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+        
+        
+        
+        .insight-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .insight-card:last-child {
+            margin-bottom: 0;
+        }
+        
+        .gemini-status {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            color: #6c757d;
+            margin-bottom: 16px;
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-dot.connected {
+            background: #28a745;
+            animation: pulse 2s infinite;
+        }
+        
+        .status-dot.disconnected {
+            background: #dc3545;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        @media (max-width: 768px) {
+            .ai-chat-container {
+                height: 500px;
+            }
+            
+            .chat-bubble {
+                max-width: 85%;
+            }
+            
+            .chat-messages {
+                padding: 16px;
+            }
+            
+            .chat-input-area {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Vendra Navbar Component -->
+    <div id="navbar-container"></div>
+
+    <!-- Sidebar will be loaded by sidebar.js -->
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Page Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h4 class="mb-1 vendra-primary">
+                    <i class="fas fa-robot me-2"></i>AI Analytics Assistant
+                </h4>
+                <p class="text-muted mb-0">Powered by Google Gemini - Ask questions about your business data</p>
+            </div>
+            <div class="d-flex gap-2">
+                <button class="btn btn-outline-danger" onclick="clearChat()">
+                    <i class="fas fa-trash me-1"></i>Clear Chat
+                </button>
+            </div>
+        </div>
+
+
+        <!-- Chat Interface -->
+        <div class="row g-4">
+            <div class="col-lg-3">
+                <!-- Chat History Sidebar -->
+                <div class="vendra-card">
+                    <div class="vendra-card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0">
+                                <i class="fas fa-history me-2"></i>Riwayat Chat
+                            </h6>
+                            <button class="btn btn-sm btn-primary" onclick="createNewSession()">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="vendra-card-body p-0">
+                        <div id="chatHistoryList" style="max-height: 400px; overflow-y: auto;">
+                            <div class="text-center py-3">
+                                <div class="spinner-border spinner-border-sm text-primary mb-2" role="status"></div>
+                                <div class="text-muted small">Loading chat history...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="vendra-card">
+                    <div class="vendra-card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0">
+                                <i class="fas fa-comments me-2"></i>Chat with AI Assistant
+                            </h6>
+                            <div class="gemini-status">
+                                <div class="status-dot connected" id="geminiStatus"></div>
+                                <span id="geminiStatusText">Connected to Gemini AI</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vendra-card-body p-0">
+                        <div class="ai-chat-container">
+                            <div class="chat-messages" id="chatMessages">
+                                <!-- Welcome Message -->
+                                <div class="chat-message">
+                                    <div class="chat-avatar ai">
+                                        <i class="fas fa-robot"></i>
+                                    </div>
+                                    <div class="chat-bubble ai">
+                                        <div class="fw-semibold mb-1">AI Assistant</div>
+                                        <div>Hello! I'm your AI Analytics Assistant powered by Google Gemini. I can help you analyze your business data, generate insights, and answer questions about your CRM. What would you like to know?</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Typing Indicator -->
+                            <div class="typing-indicator" id="typingIndicator" style="display: none;">
+                                <div class="chat-avatar ai">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <div class="chat-bubble ai">
+                                    <div class="typing-dots">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Chat Input -->
+                        <div class="chat-input-container">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="chatInput" 
+                                       placeholder="Ask me anything about your business data..." 
+                                       onkeypress="handleKeyPress(event)">
+                                <button class="btn btn-primary" onclick="sendMessage()">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/error-logger.js"></script>
+    <script src="/assets/js/navbar.js"></script>
+    <script src="/assets/js/sidebar.js"></script>
+
+    <script>
+        let questionCount = 0;
+        let chatHistory = [];
+        let currentSessionId = null;
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update sidebar active state
+            if (window.vendraSidebar) {
+                window.vendraSidebar.updateActiveState('ai-analytics');
+            }
+            
+            
+            // Initialize chat session
+            initializeChatSession();
+            
+            // Load chat history
+            loadChatHistory();
+            
+            // Focus on input
+            document.getElementById('chatInput').focus();
+        });
+
+        // Load chat history from database
+        async function loadChatHistory() {
+            try {
+                console.log('Loading chat history...');
+                const response = await fetch('/api/chat-history/sessions');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                console.log('Chat history response:', data);
+                
+                if (data.success) {
+                    displayChatHistory(data.sessions);
+                } else {
+                    displayChatHistoryError(data.message || 'Failed to load chat history');
+                }
+            } catch (error) {
+                console.error('Error loading chat history:', error);
+                displayChatHistoryError(`Error: ${error.message}`);
+            }
+        }
+
+        // Display chat history in sidebar
+        function displayChatHistory(sessions) {
+            const container = document.getElementById('chatHistoryList');
+            
+            if (!sessions || sessions.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-4">
+                        <i class="fas fa-comments fa-2x text-muted mb-2"></i>
+                        <div class="text-muted small">No chat history yet</div>
+                        <div class="text-muted small">Start a conversation to see history</div>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = sessions.map(session => {
+                const date = new Date(session.created_at).toLocaleDateString('id-ID', {
+                    day: 'numeric',
+                    month: 'short',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                const isActive = session.session_id === currentSessionId;
+                
+                return `
+                    <div class="chat-history-item ${isActive ? 'active' : ''}" 
+                         onclick="loadChatSession('${session.session_id}')">
+                        <div class="chat-history-title">${session.session_title}</div>
+                        <div class="chat-history-meta">
+                            <span class="chat-history-date">${date}</span>
+                            <span class="chat-history-count">${session.message_count} pesan</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Display error in chat history
+        function displayChatHistoryError(message) {
+            const container = document.getElementById('chatHistoryList');
+            container.innerHTML = `
+                <div class="text-center py-4">
+                    <i class="fas fa-exclamation-triangle text-warning fa-2x mb-2"></i>
+                    <div class="text-muted small">${message}</div>
+                    <button class="btn btn-sm btn-primary mt-2" onclick="loadChatHistory()">
+                        <i class="fas fa-redo me-1"></i>Retry
+                    </button>
+                </div>
+            `;
+        }
+
+        // Load specific chat session
+        async function loadChatSession(sessionId) {
+            try {
+                currentSessionId = sessionId;
+                
+                // Update active state in sidebar
+                document.querySelectorAll('.chat-history-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                event.target.closest('.chat-history-item').classList.add('active');
+                
+                // Load messages from this session
+                const response = await fetch(`/api/chat-history/sessions/${sessionId}/messages`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Clear current chat
+                    const chatMessages = document.getElementById('chatMessages');
+                    chatMessages.innerHTML = '';
+                    
+                    // Load messages
+                    data.messages.forEach(msg => {
+                        addMessage(msg.message_text, msg.sender, false); // false = don't save to history
+                    });
+                    
+                    console.log(`Loaded ${data.messages.length} messages from session ${sessionId}`);
+                }
+            } catch (error) {
+                console.error('Error loading chat session:', error);
+            }
+        }
+
+        // Create new chat session
+        async function createNewSession() {
+            try {
+                const title = `Chat AI - ${new Date().toLocaleDateString('id-ID')} ${new Date().toLocaleTimeString('id-ID', {hour: '2-digit', minute: '2-digit'})}`;
+                
+                const response = await fetch('/api/chat-history/sessions', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title: title })
+                });
+                
+                const data = await response.json();
+                if (data.success) {
+                    currentSessionId = data.sessionId;
+                    
+                    // Clear current chat
+                    const chatMessages = document.getElementById('chatMessages');
+                    chatMessages.innerHTML = `
+                        <div class="chat-message">
+                            <div class="chat-avatar ai">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="chat-bubble ai">
+                                <div class="fw-semibold mb-2">🤖 AI Assistant</div>
+                                <div>Hello! I'm your AI Analytics Assistant powered by Google Gemini. I can help you analyze your business data, generate insights, and answer questions about your CRM. What would you like to know?</div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Reload chat history to show new session
+                    loadChatHistory();
+                    
+                    console.log('New chat session created:', currentSessionId);
+                }
+            } catch (error) {
+                console.error('Error creating new session:', error);
+            }
+        }
+
+        // Initialize chat session
+        async function initializeChatSession() {
+            try {
+                // Create new session or load existing
+                const response = await fetch('/api/chat-history/sessions', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title: 'Chat AI - ' + new Date().toLocaleDateString('id-ID') })
+                });
+                
+                const data = await response.json();
+                if (data.success) {
+                    currentSessionId = data.sessionId;
+                    console.log('Chat session initialized:', currentSessionId);
+                }
+            } catch (error) {
+                console.error('Failed to initialize chat session:', error);
+                // Continue without session saving
+            }
+        }
+
+        // Save message to history
+        async function saveMessageToHistory(sender, message, tokensUsed = 0, responseTime = 0) {
+            if (!currentSessionId) return;
+            
+            try {
+                await fetch('/api/chat-history/messages', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        sessionId: currentSessionId,
+                        sender: sender,
+                        message: message,
+                        tokensUsed: tokensUsed,
+                        responseTime: responseTime
+                    })
+                });
+            } catch (error) {
+                console.error('Failed to save message:', error);
+            }
+        }
+
+
+        // Handle enter key press
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // Send message function
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message to chat
+            addMessage(message, 'user');
+            input.value = '';
+            
+            // Save user message to history
+            await saveMessageToHistory('user', message);
+            
+            // Show typing indicator
+            showTypingIndicator();
+            
+            const startTime = Date.now();
+            
+            try {
+                console.log('Sending message to AI:', message);
+                
+                // Call actual Gemini AI API
+                const response = await fetch('/api/ai/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        chatHistory: chatHistory.slice(-5) // Send last 5 messages for context
+                    })
+                });
+                
+                console.log('Response status:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                console.log('AI Response:', data);
+                
+                const responseTime = Date.now() - startTime;
+                
+                hideTypingIndicator();
+                
+                if (data.success) {
+                    // Add AI response to chat
+                    addMessage(data.data.response, 'ai');
+                    
+                    // Save AI response to history
+                    await saveMessageToHistory('ai', data.data.response, 0, responseTime);
+                    
+                    // Update chat history
+                    chatHistory.push({
+                        user: message,
+                        ai: data.data.response,
+                        timestamp: data.data.timestamp
+                    });
+                } else {
+                    const errorMsg = 'Sorry, I encountered an error processing your request. Please try again.';
+                    addMessage(errorMsg, 'ai');
+                    await saveMessageToHistory('ai', errorMsg, 0, responseTime);
+                    console.error('AI API error:', data.message);
+                }
+                
+            } catch (error) {
+                hideTypingIndicator();
+                console.error('AI Error Details:', error);
+                
+                let errorMessage = 'Sorry, I encountered an error processing your request. ';
+                
+                if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                    errorMessage += 'Please check your internet connection and try again.';
+                } else if (error.message.includes('500')) {
+                    errorMessage += 'There seems to be a server issue. Please try again in a moment.';
+                } else {
+                    errorMessage += 'Please try again or contact support if the issue persists.';
+                }
+                
+                addMessage(errorMessage, 'ai');
+            }
+            
+            // Update question count
+            questionCount++;
+            document.getElementById('questionsCount').textContent = questionCount;
+        }
+        // Format message with markdown-like styling
+        function formatMessage(text) {
+            return text
+                // Bold text **text** -> <strong>text</strong>
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                // Bullet points - text -> <li>text</li>
+                .replace(/^- (.+)$/gm, '<li>$1</li>')
+                // Numbered lists 1. text -> <li>text</li>
+                .replace(/^\d+\. (.+)$/gm, '<li>$1</li>')
+                // Line breaks
+                .replace(/\n/g, '<br>')
+                // Wrap consecutive <li> in <ul>
+                .replace(/(<li>.*?<\/li>)(?:\s*<br>\s*<li>.*?<\/li>)*/g, function(match) {
+                    return '<ul>' + match.replace(/<br>/g, '') + '</ul>';
+                });
+        }
+
+        // Add message to chat
+        function addMessage(message, sender, saveToHistory = true) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${sender}`;
+            
+            const avatar = document.createElement('div');
+            avatar.className = `chat-avatar ${sender}`;
+            avatar.innerHTML = sender === 'ai' ? '<i class="fas fa-robot"></i>' : '<i class="fas fa-user"></i>';
+            
+            const bubble = document.createElement('div');
+            bubble.className = `chat-bubble ${sender}`;
+            
+            if (sender === 'ai') {
+                const formattedMessage = formatMessage(message);
+                bubble.innerHTML = `<div class="fw-semibold mb-2">AI Assistant</div><div>${formattedMessage}</div>`;
+            } else {
+                bubble.innerHTML = `<div class="fw-semibold mb-2">You</div><div>${message}</div>`;
+            }
+            
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(bubble);
+            chatMessages.appendChild(messageDiv);
+            
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // Store in history
+            chatHistory.push({ message, sender, timestamp: new Date().toISOString() });
+        }
+
+        // Show typing indicator
+        function showTypingIndicator() {
+            document.getElementById('typingIndicator').style.display = 'flex';
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        function hideTypingIndicator() {
+            document.getElementById('typingIndicator').style.display = 'none';
+        }
+
+        // Generate AI response (placeholder - replace with Gemini API)
+        function generateAIResponse(userMessage) {
+            const responses = {
+                'top 5 customers': 'Based on your CRM data, here are your top 5 customers by revenue:<br><br>1. <strong>PT. Teknologi Maju</strong> - Rp 15,000,000<br>2. <strong>CV. Sukses Bersama</strong> - Rp 8,500,000<br>3. <strong>Toko Elektronik Jaya</strong> - Rp 6,200,000<br>4. <strong>Fashion Store Premium</strong> - Rp 2,850,000<br>5. <strong>Bookstore Central</strong> - Rp 250,000<br><br>I recommend focusing on retention strategies for your top 3 customers.',
+                
+                'revenue trends': 'Your revenue trends show positive growth:<br><br>📈 <strong>Monthly Growth:</strong> +23% vs last month<br>📊 <strong>Quarterly Performance:</strong> +15% vs Q2<br>🎯 <strong>Best Month:</strong> September with Rp 45M<br>📅 <strong>Forecast:</strong> October projected at Rp 48M<br><br>The electronics category is driving most of this growth.',
+                
+                'best products': 'Here are your top-performing products:<br><br>🥇 <strong>Laptop Gaming ASUS ROG</strong> - 15 units sold<br>🥈 <strong>iPhone 15 Pro</strong> - 12 units sold<br>🥉 <strong>Samsung Galaxy S24</strong> - 8 units sold<br><br>Electronics dominate your sales. Consider expanding this category or offering complementary accessories.',
+                
+                'customer growth': 'Your customer acquisition is healthy:<br><br>👥 <strong>New Customers:</strong> 15 this week<br>📈 <strong>Growth Rate:</strong> +12% above target<br>🎯 <strong>Conversion Rate:</strong> 3.2% from leads<br>💰 <strong>Average Customer Value:</strong> Rp 2.1M<br><br>Your premium segment is growing fastest.',
+                
+                'sales forecast': 'Based on current trends, here\'s next month\'s forecast:<br><br>📊 <strong>Projected Revenue:</strong> Rp 48M (+6.7%)<br>🛍️ <strong>Expected Orders:</strong> 180-200 orders<br>👥 <strong>New Customers:</strong> 25-30 customers<br>📱 <strong>Top Category:</strong> Electronics (65% of sales)<br><br>I recommend preparing inventory for electronics and mobile devices.',
+                
+                'marketing recommendations': 'Here are AI-powered marketing recommendations:<br><br>🎯 <strong>Target Premium Customers:</strong> Focus on customers spending >Rp 5M<br>📧 <strong>Email Campaign:</strong> Electronics accessories to recent buyers<br>🔄 <strong>Retention:</strong> Loyalty program for top 20 customers<br>📱 <strong>Social Media:</strong> Showcase customer success stories<br><br>These strategies could increase revenue by 15-20%.'
+            };
+            
+            // Find best matching response
+            let response = 'I understand you\'re asking about your business data. Let me analyze that for you...<br><br>';
+            
+            const lowerMessage = userMessage.toLowerCase();
+            for (const [key, value] of Object.entries(responses)) {
+                if (lowerMessage.includes(key)) {
+                    response = value;
+                    break;
+                }
+            }
+            
+            // Default intelligent response
+            if (response.includes('Let me analyze')) {
+                if (lowerMessage.includes('customer')) {
+                    response = 'I can see you\'re interested in customer analytics. Your customer base is growing steadily with 150 active customers. Would you like me to analyze customer segments, retention rates, or acquisition costs?';
+                } else if (lowerMessage.includes('product')) {
+                    response = 'Looking at your product data, you have strong performance in electronics. Your top products generate 70% of revenue. Would you like detailed product performance analysis or recommendations for new products?';
+                } else if (lowerMessage.includes('revenue') || lowerMessage.includes('sales')) {
+                    response = 'Your revenue data shows positive trends with Rp 42M this month. I can provide detailed revenue analysis, forecasting, or identify growth opportunities. What specific aspect interests you?';
+                } else {
+                    response = 'I\'m here to help analyze your CRM data. I can provide insights on customers, products, revenue, sales trends, and marketing recommendations. What would you like to explore?';
+                }
+            }
+            
+            addMessage(response, 'ai');
+        }
+
+
+        // Clear chat function
+        function clearChat() {
+            if (confirm('Are you sure you want to clear the chat history?')) {
+                const chatMessages = document.getElementById('chatMessages');
+                // Keep only the welcome message
+                const welcomeMessage = chatMessages.firstElementChild;
+                chatMessages.innerHTML = '';
+                chatMessages.appendChild(welcomeMessage);
+                
+                chatHistory = [];
+                questionCount = 0;
+                document.getElementById('questionsCount').textContent = '0';
+                
+                showToast('Chat Cleared', 'Chat history has been cleared', 'success');
+            }
+        }
+
+        // Settings function removed - not needed
+
+        // Toast notification function
+        function showToast(title, message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+            toast.style.cssText = 'top: 90px; right: 20px; z-index: 9999; min-width: 300px;';
+            toast.innerHTML = `
+                <strong>${title}</strong><br>
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.remove();
+                }
+            }, 5000);
+        }
+
+        // Simulate connection status
+        setInterval(() => {
+            const statusDot = document.getElementById('geminiStatus');
+            const statusText = document.getElementById('geminiStatusText');
+            
+            // Simulate occasional disconnection
+            if (Math.random() < 0.05) {
+                statusDot.className = 'status-dot disconnected';
+                statusText.textContent = 'Reconnecting to Gemini...';
+                
+                setTimeout(() => {
+                    statusDot.className = 'status-dot connected';
+                    statusText.textContent = 'Connected to Gemini AI';
+                }, 2000);
+            }
+        }, 10000);
+    </script>
+</body>
+</html>

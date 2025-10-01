@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business CRM Suite - Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="/assets/css/vendra-theme.css" rel="stylesheet">
+    <style>
+        /* Inline CSS to ensure it loads */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body.login-page {
+            font-family: var(--vendra-font-family);
+            background: var(--vendra-gradient-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .login-card {
+            background: var(--vendra-background);
+            backdrop-filter: blur(20px);
+            border-radius: var(--vendra-radius-xl);
+            padding: 48px 40px;
+            box-shadow: var(--vendra-shadow-xl);
+            border: 1px solid var(--vendra-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--vendra-gradient-accent);
+        }
+
+        .brand-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .brand-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+        }
+
+        .brand-icon i {
+            font-size: 28px;
+            color: white;
+        }
+
+        .brand-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 8px;
+        }
+
+        .brand-subtitle {
+            font-size: 14px;
+            color: #718096;
+            margin: 0;
+        }
+
+        .login-form {
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #a0aec0;
+            font-size: 16px;
+            z-index: 2;
+            transition: color 0.3s ease;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 16px 16px 16px 48px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            background: #ffffff;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-control:focus + .input-icon {
+            color: #667eea;
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 14px;
+            color: #4a5568;
+            user-select: none;
+        }
+
+        .remember-me input[type="checkbox"] {
+            margin-right: 8px;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-login:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .demo-info {
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .demo-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #f7fafc;
+            color: #4a5568;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .demo-credentials {
+            font-size: 13px;
+            color: #718096;
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .loading-spinner {
+            text-align: center;
+            color: white;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .alert {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .alert-success {
+            background: #f0fff4;
+            color: #22543d;
+            border: 1px solid #9ae6b4;
+        }
+
+        .alert-danger {
+            background: #fed7d7;
+            color: #742a2a;
+            border: 1px solid #feb2b2;
+        }
+
+        /* Brand Logo Styling */
+        .brand-logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .brand-logo-login {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+        }
+    </style>
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-card">
+            <!-- Vendra Brand Header -->
+            <div class="brand-header">
+                <div class="brand-logo-container">
+                    <img src="/assets/img/logo.png" alt="Vendra CRM" class="brand-logo-login">
+                </div>
+                <h1 class="brand-title">Welcome</h1>
+                <p class="brand-subtitle">CRM & Analytics Platform</p>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <div class="input-wrapper">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="username" class="form-control" placeholder="Username atau Email" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="password" class="form-control" placeholder="Password" required>
+                    </div>
+                </div>
+
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" id="rememberMe">
+                        <span class="checkmark"></span>
+                        Ingat saya
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-login">
+                    <span class="btn-text">Masuk ke Dashboard</span>
+                    <i class="fas fa-arrow-right btn-icon"></i>
+                </button>
+            </form>
+
+            <!-- Demo Info -->
+            <div class="demo-info">
+                <div class="demo-badge">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Demo Account</span>
+                </div>
+                <div class="demo-credentials">
+                    <strong>Username:</strong> admin<br>
+                    <strong>Password:</strong> admin123
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Memproses login...</p>
+        </div>
+    </div>
+
+    <script src="/assets/js/error-logger.js"></script>
+    <script src="/assets/js/login.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Inline JavaScript to ensure it loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            const usernameInput = document.getElementById('username');
+            const submitBtn = document.querySelector('.btn-login');
+            const btnText = document.querySelector('.btn-text');
+            const btnIcon = document.querySelector('.btn-icon');
+
+            // Form submission
+            loginForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                await handleLogin();
+            });
+
+            // Enter key handling
+            [usernameInput, passwordInput].forEach(input => {
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        handleLogin();
+                    }
+                });
+            });
+
+            async function handleLogin() {
+                const username = usernameInput.value.trim();
+                const password = passwordInput.value.trim();
+                
+                if (!username || !password) {
+                    showAlert('Username dan password harus diisi', 'danger');
+                    return;
+                }
+
+                showLoading(true);
+
+                try {
+                    const response = await fetch('/api/auth/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ username, password })
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        // Save token and user data
+                        localStorage.setItem('crm_token', data.token);
+                        localStorage.setItem('crm_user', JSON.stringify(data.user));
+
+                        showAlert('Login berhasil! Mengalihkan ke dashboard...', 'success');
+                        
+                        // Redirect to dashboard
+                        setTimeout(() => {
+                            window.location.href = '/dashboard';
+                        }, 1500);
+                    } else {
+                        showAlert(data.message || 'Login gagal', 'danger');
+                    }
+                } catch (error) {
+                    console.error('Login error:', error);
+                    showAlert('Terjadi kesalahan saat login. Silakan coba lagi.', 'danger');
+                } finally {
+                    showLoading(false);
+                }
+            }
+
+            function showLoading(show) {
+                const overlay = document.getElementById('loadingOverlay');
+                
+                if (overlay) {
+                    overlay.style.display = show ? 'flex' : 'none';
+                }
+                
+                if (submitBtn) {
+                    submitBtn.disabled = show;
+                    if (show) {
+                        submitBtn.innerHTML = '<div class="spinner" style="width:20px;height:20px;margin:0 auto;"></div> Memproses...';
+                    } else {
+                        submitBtn.innerHTML = '<span class="btn-text">Masuk ke Dashboard</span><i class="fas fa-arrow-right btn-icon"></i>';
+                    }
+                }
+            }
+
+            function showAlert(message, type = 'info') {
+                // Remove existing alerts
+                const existingAlerts = document.querySelectorAll('.alert');
+                existingAlerts.forEach(alert => alert.remove());
+
+                // Create new alert
+                const alertDiv = document.createElement('div');
+                alertDiv.className = `alert alert-${type}`;
+                
+                const icon = type === 'success' ? 'check-circle' : 
+                            type === 'danger' ? 'exclamation-circle' : 'info-circle';
+                
+                alertDiv.innerHTML = `
+                    <i class="fas fa-${icon}"></i>
+                    <span>${message}</span>
+                `;
+                
+                // Insert before form
+                const form = document.getElementById('loginForm');
+                form.parentNode.insertBefore(alertDiv, form);
+                
+                // Auto remove after 5 seconds
+                setTimeout(() => {
+                    if (alertDiv.parentNode) {
+                        alertDiv.remove();
+                    }
+                }, 5000);
+            }
+
+            // Check if already logged in
+            const token = localStorage.getItem('crm_token');
+            if (token) {
+                // Validate token with server
+                fetch('/api/auth/me', {
+                    headers: { 
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error('Token invalid');
+                })
+                .then(data => {
+                    if (data.success) {
+                        // Token is valid, redirect to dashboard
+                        window.location.href = '/dashboard';
+                    }
+                })
+                .catch(error => {
+                    // Invalid token, clear storage
+                    localStorage.removeItem('crm_token');
+                    localStorage.removeItem('crm_user');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
