@@ -9,6 +9,8 @@
     <link href="/assets/css/vendra-theme.css" rel="stylesheet">
     <link href="/assets/css/dashboard.css" rel="stylesheet">
     <link href="/assets/css/mobile.css" rel="stylesheet">
+    <link href="/assets/css/statistics-mobile.css" rel="stylesheet">
+    <link href="/assets/css/bottom-nav.css" rel="stylesheet">
     <style>
         /* Enhanced Insight Cards */
         .insight-card {
@@ -250,9 +252,14 @@
 
     <!-- Main Content -->
     <div class="main-content">
+        <!-- Mobile Page Header -->
+        <div class="page-header d-md-none">
+            <h1 class="page-title">Analytics</h1>
+            <p class="page-subtitle">Insights dan metrik bisnis real-time</p>
+        </div>
 
-        <!-- Analytics Header -->
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <!-- Desktop Analytics Header -->
+        <div class="d-none d-md-flex justify-content-between align-items-center mb-4">
             <div>
                 <h4 class="mb-1 vendra-primary">CRM Analytics Dashboard</h4>
                 <p class="text-muted mb-0">Real-time business insights and customer relationship metrics</p>
@@ -263,18 +270,26 @@
                 </button>
             </div>
         </div>
+        
+        <!-- Mobile Section Title with Refresh -->
+        <div class="section-title d-md-none">
+            <span>Key Metrics</span>
+            <button class="btn btn-outline-primary btn-refresh" onclick="statistics.refreshStats()">
+                <i class="fas fa-sync-alt me-1"></i> Refresh
+            </button>
+        </div>
 
         <!-- Key Performance Indicators -->
-        <div class="row g-3 mb-4">
+        <div class="analytics-grid row g-3 mb-4">
             <div class="col-xl-3 col-md-6">
-                <div class="modern-kpi-card revenue-card">
-                    <div class="kpi-icon">
+                <div class="analytics-card modern-kpi-card revenue-card">
+                    <div class="analytics-icon kpi-icon" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%);">
                         <i class="fas fa-money-bill-wave"></i>
                     </div>
-                    <div class="kpi-content">
-                        <div class="kpi-number" id="totalRevenue">Rp 0</div>
-                        <div class="kpi-label">Total Revenue</div>
-                        <div class="kpi-trend" id="revenueTrend">
+                    <div class="analytics-content kpi-content">
+                        <div class="analytics-number kpi-number" id="totalRevenue">Rp 0</div>
+                        <div class="analytics-label kpi-label">Total Revenue</div>
+                        <div class="analytics-change kpi-trend positive" id="revenueTrend">
                             <i class="fas fa-arrow-up"></i> +12.5%
                         </div>
                     </div>
@@ -282,14 +297,14 @@
             </div>
 
             <div class="col-xl-3 col-md-6">
-                <div class="modern-kpi-card customers-card">
-                    <div class="kpi-icon">
+                <div class="analytics-card modern-kpi-card customers-card">
+                    <div class="analytics-icon kpi-icon" style="background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);">
                         <i class="fas fa-users"></i>
                     </div>
-                    <div class="kpi-content">
-                        <div class="kpi-number" id="totalCustomers">0</div>
-                        <div class="kpi-label">Active Customers</div>
-                        <div class="kpi-trend">
+                    <div class="analytics-content kpi-content">
+                        <div class="analytics-number kpi-number" id="totalCustomers">0</div>
+                        <div class="analytics-label kpi-label">Active Customers</div>
+                        <div class="analytics-change kpi-trend positive">
                             <i class="fas fa-user-plus"></i> +8.3%
                         </div>
                     </div>
@@ -297,14 +312,14 @@
             </div>
 
             <div class="col-xl-3 col-md-6">
-                <div class="modern-kpi-card orders-card">
-                    <div class="kpi-icon">
+                <div class="analytics-card modern-kpi-card orders-card">
+                    <div class="analytics-icon kpi-icon" style="background: linear-gradient(135deg, #fd7e14 0%, #e55a00 100%);">
                         <i class="fas fa-shopping-cart"></i>
                     </div>
-                    <div class="kpi-content">
-                        <div class="kpi-number" id="totalTransactions">0</div>
-                        <div class="kpi-label">Total Orders</div>
-                        <div class="kpi-trend">
+                    <div class="analytics-content kpi-content">
+                        <div class="analytics-number kpi-number" id="totalTransactions">0</div>
+                        <div class="analytics-label kpi-label">Total Orders</div>
+                        <div class="analytics-change kpi-trend positive">
                             <i class="fas fa-chart-line"></i> +15.7%
                         </div>
                     </div>
@@ -312,14 +327,14 @@
             </div>
 
             <div class="col-xl-3 col-md-6">
-                <div class="modern-kpi-card average-card">
-                    <div class="kpi-icon">
+                <div class="analytics-card modern-kpi-card average-card">
+                    <div class="analytics-icon kpi-icon" style="background: linear-gradient(135deg, #6f42c1 0%, #5a2d91 100%);">
                         <i class="fas fa-calculator"></i>
                     </div>
-                    <div class="kpi-content">
-                        <div class="kpi-number" id="avgTransaction">Rp 0</div>
-                        <div class="kpi-label">Avg Order Value</div>
-                        <div class="kpi-trend">
+                    <div class="analytics-content kpi-content">
+                        <div class="analytics-number kpi-number" id="avgTransaction">Rp 0</div>
+                        <div class="analytics-label kpi-label">Avg Order Value</div>
+                        <div class="analytics-change kpi-trend positive">
                             <i class="fas fa-coins"></i> +5.2%
                         </div>
                     </div>
@@ -521,8 +536,36 @@
     <script src="/assets/js/error-logger.js"></script>
     <script src="/assets/js/navbar.js"></script>
     <script src="/assets/js/sidebar.js"></script>
+    <script src="/assets/js/bottom-nav.js"></script>
     <script src="/assets/js/statistics.js"></script>
 
+    <script>
+        // Initialize navbar and sidebar components
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize navbar and sidebar components
+            if (typeof VendraNavbar !== 'undefined') {
+                window.vendraNavbar = new VendraNavbar();
+            }
+            
+            if (typeof VendraSidebar !== 'undefined') {
+                // Clean up any existing sidebar first
+                if (window.vendraSidebar) {
+                    window.vendraSidebar.removeExistingSidebars();
+                }
+                window.vendraSidebar = new VendraSidebar();
+            }
+            
+            // Update sidebar active state after initialization
+            setTimeout(() => {
+                if (window.vendraSidebar) {
+                    window.vendraSidebar.updateActiveState('statistics');
+                }
+                if (window.vendraBottomNav) {
+                    window.vendraBottomNav.updateActiveState('statistics');
+                }
+            }, 100);
+        });
+    </script>
 
 </body>
 </html>

@@ -43,40 +43,8 @@ class Dashboard {
             this.logout();
         });
 
-        // Page navigation
-        document.querySelectorAll('.sidebar-nav-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                const page = link.getAttribute('data-page');
-                const href = link.getAttribute('href');
-                
-                console.log('Sidebar link clicked:', { page, href });
-                
-                // Log user action
-                if (window.frontendLogger) {
-                    window.frontendLogger.logUserAction('sidebar_navigation', link, {
-                        page,
-                        href,
-                        text: link.textContent.trim()
-                    });
-                }
-                
-                // Only prevent default for internal page navigation (data-page)
-                if (page) {
-                    e.preventDefault();
-                    this.showPage(page);
-                    this.setActiveNavLink(link);
-                } else if (href && href.startsWith('/') && href !== '/dashboard') {
-                    // Allow normal navigation for other routes like /statistics, /logs
-                    console.log('Allowing normal navigation to:', href);
-                    // Don't prevent default, let browser handle navigation
-                    return;
-                } else if (href === '#') {
-                    // Prevent default for placeholder links
-                    e.preventDefault();
-                    console.log('Prevented default for placeholder link');
-                }
-            });
-        });
+        // Note: Page navigation is now handled by VendraSidebar class
+        // No need to duplicate event listeners here
     }
 
     showPage(pageId) {

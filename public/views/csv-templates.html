@@ -10,6 +10,7 @@
     <link href="/assets/css/vendra-theme.css" rel="stylesheet">
     <link href="/assets/css/dashboard.css" rel="stylesheet">
     <link href="/assets/css/mobile.css" rel="stylesheet">
+    <link href="/assets/css/bottom-nav.css" rel="stylesheet">
 </head>
 <body>
     <!-- Vendra Navbar Component -->
@@ -200,8 +201,35 @@
     <script src="/assets/js/error-logger.js"></script>
     <script src="/assets/js/navbar.js"></script>
     <script src="/assets/js/sidebar.js"></script>
+    <script src="/assets/js/bottom-nav.js"></script>
 
     <script>
+        // Initialize navbar and sidebar components
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize navbar and sidebar components
+            if (typeof VendraNavbar !== 'undefined') {
+                window.vendraNavbar = new VendraNavbar();
+            }
+            
+            if (typeof VendraSidebar !== 'undefined') {
+                // Clean up any existing sidebar first
+                if (window.vendraSidebar) {
+                    window.vendraSidebar.removeExistingSidebars();
+                }
+                window.vendraSidebar = new VendraSidebar();
+            }
+            
+            // Update sidebar active state after initialization
+            setTimeout(() => {
+                if (window.vendraSidebar) {
+                    window.vendraSidebar.updateActiveState('data-templates');
+                }
+                if (window.vendraBottomNav) {
+                    window.vendraBottomNav.updateActiveState('data-templates');
+                }
+            }, 100);
+        });
+
         // Template download function
         function downloadCustomerTemplate() {
             window.location.href = '/api/import/template/customer-transactions';

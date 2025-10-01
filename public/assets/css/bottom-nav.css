@@ -1,0 +1,254 @@
+/* Bottom Navigation Bar - Professional Mobile Style */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-top: 1px solid #e9ecef;
+    box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 8px 0 calc(8px + env(safe-area-inset-bottom));
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.bottom-nav-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #6c757d;
+    transition: all 0.2s ease;
+    padding: 8px 12px;
+    border-radius: 12px;
+    min-width: 60px;
+    position: relative;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.bottom-nav-item:hover,
+.bottom-nav-item:focus {
+    color: var(--vendra-primary);
+    background: rgba(31, 58, 147, 0.08);
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.bottom-nav-item.active {
+    color: var(--vendra-primary);
+    background: rgba(31, 58, 147, 0.12);
+}
+
+.bottom-nav-item.active .bottom-nav-icon {
+    transform: scale(1.1);
+}
+
+.bottom-nav-icon {
+    position: relative;
+    font-size: 20px;
+    margin-bottom: 4px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+}
+
+.bottom-nav-label {
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.bottom-nav-badge {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    background: var(--vendra-primary);
+    color: white;
+    font-size: 8px;
+    font-weight: 600;
+    padding: 2px 4px;
+    border-radius: 6px;
+    line-height: 1;
+    min-width: 16px;
+    text-align: center;
+}
+
+/* Active state animation */
+.bottom-nav-item.active .bottom-nav-icon::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    background: var(--vendra-primary);
+    border-radius: 50%;
+    animation: activeIndicator 0.3s ease;
+}
+
+@keyframes activeIndicator {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) scale(0);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+    }
+}
+
+/* Hide on desktop, show on mobile */
+@media (min-width: 769px) {
+    .bottom-nav {
+        display: none;
+    }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+    .bottom-nav {
+        display: block;
+    }
+    
+    /* Add bottom padding to main content to avoid overlap */
+    .main-content {
+        padding-bottom: 90px !important;
+        margin-left: 0 !important;
+    }
+    
+    .page-content {
+        padding-bottom: 20px !important;
+    }
+    
+    /* Hide desktop sidebar on mobile */
+    .sidebar {
+        display: none !important;
+    }
+    
+    /* Hide mobile sidebar components when using bottom nav */
+    .mobile-sidebar,
+    .mobile-sidebar-overlay {
+        display: none !important;
+    }
+    
+    /* Hide hamburger menu when using bottom nav */
+    .mobile-menu-toggle {
+        display: none !important;
+    }
+    
+    /* Adjust navbar for mobile */
+    .navbar {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    
+    .navbar-brand {
+        font-size: 18px;
+    }
+    
+    /* Ensure content doesn't get cut off */
+    body {
+        padding-bottom: 0;
+    }
+    
+    /* Adjust container margins */
+    .container-fluid {
+        padding-bottom: 20px;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+    .bottom-nav-container {
+        padding: 0 8px;
+    }
+    
+    .bottom-nav-item {
+        min-width: 50px;
+        padding: 6px 8px;
+    }
+    
+    .bottom-nav-icon {
+        font-size: 18px;
+        width: 24px;
+        height: 24px;
+    }
+    
+    .bottom-nav-label {
+        font-size: 10px;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .bottom-nav {
+        background: #1a1a1a;
+        border-top-color: #333;
+    }
+    
+    .bottom-nav-item {
+        color: #aaa;
+    }
+    
+    .bottom-nav-item:hover,
+    .bottom-nav-item:focus,
+    .bottom-nav-item.active {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* Safe area support for iPhone X+ */
+@supports (padding: max(0px)) {
+    .bottom-nav {
+        padding-bottom: max(8px, env(safe-area-inset-bottom));
+    }
+}
+
+/* Smooth transitions */
+.bottom-nav-item * {
+    transition: all 0.2s ease;
+}
+
+/* Focus states for accessibility */
+.bottom-nav-item:focus {
+    outline: 2px solid var(--vendra-primary);
+    outline-offset: 2px;
+}
+
+/* Ripple effect on tap (optional) */
+.bottom-nav-item::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(31, 58, 147, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
+    pointer-events: none;
+}
+
+.bottom-nav-item:active::after {
+    width: 60px;
+    height: 60px;
+}

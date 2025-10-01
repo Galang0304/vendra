@@ -234,6 +234,9 @@ body {
 /* Navbar User Info */
 .navbar-user {
     margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .user-info {

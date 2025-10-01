@@ -10,6 +10,7 @@
     <link href="/assets/css/vendra-theme.css" rel="stylesheet">
     <link href="/assets/css/dashboard.css" rel="stylesheet">
     <link href="/assets/css/mobile.css" rel="stylesheet">
+    <link href="/assets/css/bottom-nav.css" rel="stylesheet">
     <style>
         .ai-chat-container {
             height: 600px;
@@ -461,6 +462,7 @@
     <script src="/assets/js/error-logger.js"></script>
     <script src="/assets/js/navbar.js"></script>
     <script src="/assets/js/sidebar.js"></script>
+    <script src="/assets/js/bottom-nav.js"></script>
 
     <script>
         let questionCount = 0;
@@ -469,11 +471,28 @@
 
         // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
-            // Update sidebar active state
-            if (window.vendraSidebar) {
-                window.vendraSidebar.updateActiveState('ai-analytics');
+            // Initialize navbar and sidebar components
+            if (typeof VendraNavbar !== 'undefined') {
+                window.vendraNavbar = new VendraNavbar();
             }
             
+            if (typeof VendraSidebar !== 'undefined') {
+                // Clean up any existing sidebar first
+                if (window.vendraSidebar) {
+                    window.vendraSidebar.removeExistingSidebars();
+                }
+                window.vendraSidebar = new VendraSidebar();
+            }
+            
+            // Update sidebar active state after initialization
+            setTimeout(() => {
+                if (window.vendraSidebar) {
+                    window.vendraSidebar.updateActiveState('ai-analytics');
+                }
+                if (window.vendraBottomNav) {
+                    window.vendraBottomNav.updateActiveState('ai-analytics');
+                }
+            }, 100);
             
             // Initialize chat session
             initializeChatSession();
@@ -566,6 +585,9 @@
             try {
                 currentSessionId = sessionId;
                 
+                // Store current session ID
+                sessionStorage.setItem('currentChatSessionId', sessionId);
+                
                 // Update active state in sidebar
                 document.querySelectorAll('.chat-history-item').forEach(item => {
                     item.classList.remove('active');
@@ -608,6 +630,9 @@
                 if (data.success) {
                     currentSessionId = data.sessionId;
                     
+                    // Store new session ID for future page loads
+                    sessionStorage.setItem('currentChatSessionId', currentSessionId);
+                    
                     // Clear current chat
                     const chatMessages = document.getElementById('chatMessages');
                     chatMessages.innerHTML = `
@@ -632,10 +657,29 @@
             }
         }
 
-        // Initialize chat session
+        // Initialize chat session - only create new if needed
         async function initializeChatSession() {
             try {
-                // Create new session or load existing
+                // Check if we have a stored session ID
+                const storedSessionId = sessionStorage.getItem('currentChatSessionId');
+                
+                if (storedSessionId) {
+                    // Verify if stored session still exists
+                    const verifyResponse = await fetch(`/api/chat-history/sessions`);
+                    const sessionsData = await verifyResponse.json();
+                    
+                    if (sessionsData.success) {
+                        const sessionExists = sessionsData.sessions.find(s => s.session_id === storedSessionId);
+                        if (sessionExists) {
+                            currentSessionId = storedSessionId;
+                            console.log('Using existing chat session:', currentSessionId);
+                            return; // Don't create new session
+                        }
+                    }
+                }
+                
+                // Only create new session if no valid existing session
+                console.log('Creating new chat session...');
                 const response = await fetch('/api/chat-history/sessions', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -645,7 +689,9 @@
                 const data = await response.json();
                 if (data.success) {
                     currentSessionId = data.sessionId;
-                    console.log('Chat session initialized:', currentSessionId);
+                    // Store session ID for future page loads
+                    sessionStorage.setItem('currentChatSessionId', currentSessionId);
+                    console.log('New chat session created:', currentSessionId);
                 }
             } catch (error) {
                 console.error('Failed to initialize chat session:', error);

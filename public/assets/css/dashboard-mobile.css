@@ -1,0 +1,389 @@
+/* Dashboard Mobile Layout - Optimized for Mobile Experience */
+
+/* Mobile Dashboard Container */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 12px 12px 120px 12px !important;
+        margin-left: 0 !important;
+        height: 100vh !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    
+    .page-content {
+        padding: 0 !important;
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    
+    /* Compact page header */
+    .page-header {
+        margin-bottom: 16px !important;
+    }
+    
+    .page-title {
+        font-size: 22px !important;
+        font-weight: 700;
+        color: #1F3A93;
+        margin-bottom: 2px;
+    }
+    
+    .page-subtitle {
+        font-size: 13px;
+        color: #666;
+        margin-bottom: 0;
+    }
+    
+    /* Mobile Stats Cards - 2x2 Grid Layout */
+    .row.g-4 {
+        gap: 10px !important;
+        margin: 0 !important;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        grid-template-rows: auto auto !important;
+    }
+    
+    .row.g-4 > [class*="col-"] {
+        padding: 0 !important;
+        width: auto !important;
+        max-width: none !important;
+        flex: none !important;
+    }
+    
+    /* Mobile Stats Card Design - Compact */
+    .stats-card {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        padding: 14px 10px !important;
+        border-radius: 12px !important;
+        background: white;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+        border: 1px solid #f0f0f0;
+        margin-bottom: 0 !important;
+        min-height: 110px !important;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .stats-icon {
+        width: 40px !important;
+        height: 40px !important;
+        border-radius: 10px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin: 0 auto 8px auto !important;
+        flex-shrink: 0;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    /* Ensure gradient backgrounds work properly */
+    .stats-icon[style*="gradient"] {
+        background: var(--vendra-gradient-primary) !important;
+    }
+    
+    .stats-icon i {
+        font-size: 18px !important;
+        color: white !important;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        opacity: 1 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-weight: 900 !important;
+        font-family: "Font Awesome 6 Free" !important;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        line-height: 1 !important;
+        text-align: center !important;
+    }
+    
+    /* Specific FontAwesome icon fixes */
+    .stats-icon i.fas,
+    .stats-icon i.fa-solid {
+        font-weight: 900 !important;
+    }
+    
+    .stats-icon i.far,
+    .stats-icon i.fa-regular {
+        font-weight: 400 !important;
+    }
+    
+    .stats-icon i.fab,
+    .stats-icon i.fa-brands {
+        font-weight: 400 !important;
+    }
+    
+    .stats-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    
+    .stats-number {
+        font-size: 20px !important;
+        font-weight: 700 !important;
+        color: #1F3A93;
+        line-height: 1.2;
+        margin-bottom: 3px;
+    }
+    
+    .stats-label {
+        font-size: 10px !important;
+        color: #666;
+        font-weight: 500;
+        margin-bottom: 3px;
+        text-align: center;
+        line-height: 1.2;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .stats-change {
+        font-size: 8px !important;
+        font-weight: 500;
+        text-align: center;
+        line-height: 1.2;
+    }
+    
+    .stats-change.positive {
+        color: #27AE60;
+    }
+    
+    .stats-change.negative {
+        color: #E74C3C;
+    }
+    
+    /* Mobile Transaction Table - Full Height */
+    .dashboard-section {
+        margin-bottom: 16px !important;
+    }
+    
+    .dashboard-section:last-child {
+        margin-bottom: 0 !important;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .dashboard-section:last-child .vendra-card {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .dashboard-section:last-child .vendra-card-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 0 !important;
+    }
+    
+    .table-responsive {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 12px;
+        margin-bottom: 20px !important;
+        flex: 1 !important;
+        height: auto !important;
+        min-height: 250px !important;
+        max-height: none !important;
+        overflow-y: auto;
+        background: white;
+    }
+    
+    .table {
+        margin-bottom: 0 !important;
+        font-size: 11px;
+    }
+    
+    .table th {
+        background: #f8f9fa;
+        border: none;
+        padding: 10px 8px;
+        font-weight: 600;
+        color: #1F3A93;
+        font-size: 10px;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .table td {
+        padding: 10px 8px;
+        border-color: #f0f0f0;
+        vertical-align: middle;
+        font-size: 11px;
+    }
+    
+    /* Mobile Customer Avatars */
+    .customer-avatar {
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 10px;
+        color: white;
+        margin-right: 6px;
+        flex-shrink: 0;
+    }
+    
+    /* Mobile Product Tags */
+    .product-category {
+        display: inline-block;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 10px;
+        font-weight: 500;
+        margin-top: 2px;
+    }
+    
+    .product-category.food { background: #E8F5E8; color: #27AE60; }
+    .product-category.automotive { background: #E3F2FD; color: #1976D2; }
+    .product-category.beauty { background: #FCE4EC; color: #C2185B; }
+    .product-category.sports { background: #FFF3E0; color: #F57C00; }
+    .product-category.books { background: #F3E5F5; color: #7B1FA2; }
+    .product-category.electronics { background: #E0F2F1; color: #00695C; }
+    .product-category.fashion { background: #FFEBEE; color: #D32F2F; }
+    
+    /* Mobile Amount Display */
+    .amount-display {
+        font-weight: 600;
+        color: #1F3A93;
+    }
+    
+    /* Mobile Date Display */
+    .date-display {
+        font-size: 11px;
+        color: #666;
+    }
+    
+    .time-display {
+        font-size: 10px;
+        color: #999;
+        display: block;
+        margin-top: 1px;
+    }
+    
+    /* Mobile Page Header */
+    .page-header {
+        margin-bottom: 20px;
+    }
+    
+    .page-title {
+        font-size: 24px !important;
+        font-weight: 700;
+        color: #1F3A93;
+        margin-bottom: 4px;
+    }
+    
+    .page-subtitle {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 0;
+    }
+    
+    /* Mobile Refresh Button */
+    .btn-refresh {
+        padding: 8px 16px;
+        font-size: 13px;
+        border-radius: 8px;
+        font-weight: 500;
+    }
+    
+    /* Mobile Section Spacing - Compact */
+    .section-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1F3A93;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    /* Mobile Card Hover Effects */
+    .stats-card:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+    
+    /* Mobile Table Scroll Indicator */
+    .table-responsive::after {
+        content: '← Scroll untuk melihat lebih →';
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        font-size: 10px;
+        color: #999;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 2px 6px;
+        border-radius: 4px;
+        pointer-events: none;
+    }
+    
+    /* Hide scroll indicator when not needed */
+    .table-responsive:not(.scrollable)::after {
+        display: none;
+    }
+}
+
+/* Extra small screens (phones in portrait) */
+@media (max-width: 480px) {
+    .main-content {
+        padding: 12px 8px 100px 8px !important;
+    }
+    
+    .stats-card {
+        padding: 12px !important;
+    }
+    
+    .stats-icon {
+        width: 40px !important;
+        height: 40px !important;
+        margin-right: 12px;
+    }
+    
+    .stats-icon i {
+        font-size: 18px !important;
+    }
+    
+    .stats-number {
+        font-size: 18px !important;
+    }
+    
+    .stats-label {
+        font-size: 12px !important;
+    }
+    
+    .stats-change {
+        font-size: 10px !important;
+    }
+    
+    .table th,
+    .table td {
+        padding: 8px 6px;
+    }
+    
+    .customer-avatar {
+        width: 28px;
+        height: 28px;
+        font-size: 11px;
+    }
+}

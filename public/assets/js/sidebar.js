@@ -21,9 +21,39 @@ class VendraSidebar {
         return 'dashboard'; // default
     }
 
+    removeExistingSidebars() {
+        // Remove all possible sidebar elements
+        const sidebarSelectors = [
+            '.sidebar',
+            '.mobile-sidebar',
+            '.mobile-sidebar-overlay',
+            '.sidebar-overlay',
+            '[class*="sidebar"]'
+        ];
+        
+        sidebarSelectors.forEach(selector => {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(element => {
+                if (element && element.parentNode) {
+                    element.parentNode.removeChild(element);
+                }
+            });
+        });
+        
+        console.log('Existing sidebars removed');
+        
+        // Also reset the global sidebar instance
+        if (window.vendraSidebar) {
+            window.vendraSidebar = null;
+        }
+    }
+
     async loadSidebar() {
         try {
-            // Check if sidebar already exists
+                // Remove any existing sidebars first
+            this.removeExistingSidebars();
+            
+            // Check if sidebar already exists after cleanup
             if (document.querySelector('.sidebar')) {
                 console.log('Sidebar already exists, skipping load');
                 return;
@@ -142,24 +172,40 @@ class VendraSidebar {
     }
 
     toggleMobileSidebar() {
+        console.log('toggleMobileSidebar called - sidebar.js');
         const mobileSidebar = document.getElementById('mobileSidebar');
         const mobileSidebarOverlay = document.getElementById('mobileSidebarOverlay');
         
+        console.log('Mobile sidebar elements:', {
+            mobileSidebar: !!mobileSidebar,
+            mobileSidebarOverlay: !!mobileSidebarOverlay,
+            isShowing: mobileSidebarOverlay?.classList.contains('show')
+        });
+        
         if (mobileSidebarOverlay && mobileSidebarOverlay.classList.contains('show')) {
+            console.log('Hiding mobile sidebar');
             this.hideMobileSidebar();
         } else {
+            console.log('Showing mobile sidebar');
             this.showMobileSidebar();
         }
     }
 
     handleNavigation(e) {
         const link = e.target.closest('.sidebar-nav-link, .mobile-sidebar-nav-link');
-        const href = link?.getAttribute('href');
-        const page = link?.getAttribute('data-page');
+        if (!link) return;
+        
+        const href = link.getAttribute('href');
+        const page = link.getAttribute('data-page');
 
-        // If it's a real URL, let it navigate normally
-        if (href && href !== '#') {
-            this.hideMobileSidebar();
+        // Always prevent default for # links to avoid hash in URL
+        if (href === '#') {
+            e.preventDefault();
+        }
+
+        // If it's a real URL (not # and not empty), let it navigate normally
+        if (href && href !== '#' && href !== '') {
+            // Don't prevent default, let browser handle navigation
             return;
         }
 
@@ -167,36 +213,42 @@ class VendraSidebar {
         if (page) {
             e.preventDefault();
             this.navigateToPage(page);
-            this.hideMobileSidebar();
+            
+            // Close mobile sidebar if open
+            const mobileSidebar = document.getElementById('mobileSidebar');
+            if (mobileSidebar && mobileSidebar.classList.contains('show')) {
+                this.hideMobileSidebar();
+            }
         }
     }
 
     navigateToPage(page) {
         // Handle internal page navigation based on current context
+        // Use window.location.assign to avoid hash issues
         switch (page) {
             case 'dashboard':
                 if (window.location.pathname !== '/dashboard') {
-                    window.location.href = '/dashboard';
+                    window.location.assign('/dashboard');
                 }
                 break;
             case 'statistics':
                 if (window.location.pathname !== '/statistics') {
-                    window.location.href = '/statistics';
+                    window.location.assign('/statistics');
                 }
                 break;
             case 'ai-analytics':
                 if (window.location.pathname !== '/ai-analytics') {
-                    window.location.href = '/ai-analytics';
+                    window.location.assign('/ai-analytics');
                 }
                 break;
             case 'import-data':
                 if (window.location.pathname !== '/import-data') {
-                    window.location.href = '/import-data';
+                    window.location.assign('/import-data');
                 }
                 break;
             case 'data-templates':
                 if (window.location.pathname !== '/csv-templates') {
-                    window.location.href = '/csv-templates';
+                    window.location.assign('/csv-templates');
                 }
                 break;
             default:
@@ -411,12 +463,8 @@ class VendraSidebar {
     }
 }
 
-// Initialize sidebar when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    if (!window.vendraSidebar) {
-        window.vendraSidebar = new VendraSidebar();
-    }
-});
+// Sidebar will be initialized manually by each page to avoid conflicts
+// No auto-initialization to prevent double sidebar creation
 
 // Ensure sidebar persists on page changes
 window.addEventListener('load', function() {

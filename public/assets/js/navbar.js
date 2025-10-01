@@ -11,15 +11,6 @@ class VendraNavbar {
         this.setupEventListeners();
         this.updateUserInfo();
         this.updateNotificationCount();
-        
-        // Debug: Check if mobile menu toggle exists
-        setTimeout(() => {
-            const mobileToggle = document.getElementById('mobileMenuToggle');
-            console.log('Mobile menu toggle found:', !!mobileToggle);
-            if (mobileToggle) {
-                console.log('Mobile toggle element:', mobileToggle);
-            }
-        }, 1000);
     }
 
     async loadNavbar() {
@@ -45,7 +36,20 @@ class VendraNavbar {
     }
 
     setupEventListeners() {
-        // Mobile menu toggle with multiple event types for better mobile support
+        // Enhanced mobile menu toggle with better touch support
+        const mobileToggle = document.getElementById('mobileMenuToggle');
+        if (mobileToggle) {
+            // Multiple event types for better mobile support
+            ['click', 'touchend'].forEach(eventType => {
+                mobileToggle.addEventListener(eventType, (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.toggleMobileMenu();
+                }, { passive: false });
+            });
+        }
+
+        // Fallback event listener for dynamically loaded elements
         document.addEventListener('click', (e) => {
             if (e.target.closest('#mobileMenuToggle')) {
                 e.preventDefault();
@@ -53,18 +57,10 @@ class VendraNavbar {
                 this.toggleMobileMenu();
             }
         });
-        
-        // Additional touch event for mobile
-        document.addEventListener('touchstart', (e) => {
-            if (e.target.closest('#mobileMenuToggle')) {
-                e.preventDefault();
-                this.toggleMobileMenu();
-            }
-        }, { passive: false });
 
         // Logout functionality
         document.addEventListener('click', (e) => {
-            if (e.target.closest('#logoutBtn')) {
+            if (e.target.closest('#logoutBtn') || e.target.closest('#mobileLogoutBtn')) {
                 e.preventDefault();
                 this.handleLogout();
             }
@@ -76,7 +72,6 @@ class VendraNavbar {
                 this.handleNotificationClick();
             }
         });
-
         // Profile dropdown handlers
         document.addEventListener('click', (e) => {
             if (e.target.closest('.dropdown-item')) {
@@ -95,30 +90,21 @@ class VendraNavbar {
     }
 
     toggleMobileMenu() {
-        console.log('Mobile menu toggle clicked');
+        console.log('Mobile menu toggle clicked - navbar.js');
         
         // Trigger mobile menu toggle for sidebar
         if (window.vendraSidebar) {
-            console.log('Using vendraSidebar.showMobileSidebar()');
-            window.vendraSidebar.showMobileSidebar();
+            console.log('Using vendraSidebar.toggleMobileSidebar()');
+            window.vendraSidebar.toggleMobileSidebar();
         } else {
             console.log('Using fallback mobile sidebar toggle');
-            // Fallback: direct DOM manipulation
-            const mobileSidebar = document.getElementById('mobileSidebar');
-            const mobileSidebarOverlay = document.getElementById('mobileSidebarOverlay');
-            
-            if (mobileSidebarOverlay && mobileSidebar) {
-                mobileSidebarOverlay.style.display = 'block';
-                setTimeout(() => {
-                    mobileSidebarOverlay.classList.add('show');
-                    mobileSidebar.classList.add('show');
-                }, 10);
+            // Fallback: toggle sidebar visibility
+            const sidebar = document.querySelector('.sidebar');
+            if (sidebar) {
+                sidebar.classList.toggle('mobile-open');
+                console.log('Toggled mobile-open class on sidebar');
             } else {
-                // Last resort: toggle any sidebar
-                const sidebar = document.querySelector('.sidebar');
-                if (sidebar) {
-                    sidebar.classList.toggle('mobile-open');
-                }
+                console.log('No sidebar found for fallback');
             }
         }
     }
@@ -154,24 +140,21 @@ class VendraNavbar {
     handleNotificationClick() {
         // Mark notifications as read
         this.notificationCount = 0;
-        this.updateNotificationCount();
         
         console.log('Notifications clicked - marked as read');
     }
 
     handleLogout() {
+        console.log('Logout clicked - navbar.js');
+        
+        // Clear authentication data
+        localStorage.removeItem('token');
+        localStorage.removeItem('currentUser');
+        
+        // Show logout confirmation (optional)
         if (confirm('Are you sure you want to logout?')) {
-            // Clear user data
-            localStorage.removeItem('token');
-            localStorage.removeItem('currentUser');
-            
-            // Show logout message
-            this.showToast('Logged out successfully', 'success');
-            
-            // Redirect to login after short delay
-            setTimeout(() => {
-                window.location.href = '/';
-            }, 1000);
+            // Redirect to login page
+            window.location.href = '/';
         }
     }
 

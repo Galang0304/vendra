@@ -1,24 +1,107 @@
 /* Vendra CRM - Mobile Responsive CSS */
 
-/* Mobile Hamburger Menu */
+/* Mobile Hamburger Menu - Enhanced for DevTunnel */
 .mobile-menu-toggle {
     display: none;
     background: none;
     border: none;
     color: white;
-    font-size: 20px;
-    padding: 8px;
+    font-size: 18px;
+    padding: 12px;
     cursor: pointer;
-    border-radius: var(--vendra-radius-md);
-    transition: var(--vendra-transition-normal);
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    min-width: 48px;
+    min-height: 48px;
     z-index: 1060;
     position: relative;
     touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.mobile-menu-toggle:hover {
+.mobile-menu-toggle:hover,
+.mobile-menu-toggle:focus,
+.mobile-menu-toggle:active {
     background: rgba(255, 255, 255, 0.1);
+    outline: none;
+}
+
+/* Mobile Logout Button */
+.mobile-logout-btn {
+    display: none;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    min-width: 44px;
+    min-height: 44px;
+    z-index: 1060;
+    position: relative;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+}
+
+.mobile-logout-btn:hover,
+.mobile-logout-btn:focus,
+.mobile-logout-btn:active {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    outline: none;
+    transform: scale(1.05);
+}
+
+/* Show/Hide classes for responsive design */
+.desktop-only {
+    display: flex;
+    align-items: center;
+}
+
+.mobile-only {
+    display: none;
+}
+
+/* Ensure navbar user area is properly aligned */
+.navbar-user {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    gap: 8px;
+}
+
+/* Desktop-specific navbar styling */
+@media (min-width: 769px) {
+    .navbar-user {
+        display: flex !important;
+        align-items: center;
+        margin-left: auto;
+        gap: 8px;
+    }
+    
+    .desktop-only {
+        display: flex !important;
+        align-items: center;
+    }
+    
+    .mobile-only {
+        display: none !important;
+    }
+    
+    .user-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: white;
+    }
 }
 
 /* Mobile Sidebar Overlay */
@@ -232,14 +315,27 @@
 
     /* Show mobile hamburger */
     .mobile-menu-toggle {
-        display: block !important;
+        display: flex !important;
         order: -1; /* Put hamburger first */
-        min-width: 44px;
-        min-height: 44px;
+        margin-right: 12px;
+    }
+    
+    /* Show mobile logout button, hide desktop user info */
+    .mobile-only {
         display: flex !important;
         align-items: center;
-        justify-content: center;
-        margin-right: 12px;
+    }
+    
+    .desktop-only {
+        display: none !important;
+    }
+    
+    /* Adjust navbar user area for mobile */
+    .navbar-user {
+        display: flex !important;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
     }
 
     /* Show mobile sidebar overlay and sidebar */

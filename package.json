@@ -6,15 +6,14 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "build": "echo 'Build completed - static files ready'",
-    "postinstall": "node setup/setup-chat-history.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "seed": "node setup/seed-data.js"
+    "clean-chat": "node scripts/clean-chat-history.js",
+    "backup-clean-chat": "node scripts/backup-and-clean-chat.js",
+    "reset-db": "node scripts/clean-chat-history.js"
   },
   "keywords": [
     "crm",
     "business",
-    "customer-management",
     "analytics",
     "dashboard"
   ],
