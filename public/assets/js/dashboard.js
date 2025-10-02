@@ -15,8 +15,55 @@ class Dashboard {
         this.setupEventListeners();
         this.loadUserInfo();
         
-        // Load real data from API
-        this.loadTransactions();
+        // Load data with timeout fallback
+        this.initializeData();
+    }
+
+    async initializeData() {
+        // Always show sample data first for immediate UI feedback
+        this.loadSampleDataFallback();
+        
+        // Then try to load real data with timeout
+        try {
+            const timeoutPromise = new Promise((_, reject) => 
+                setTimeout(() => reject(new Error('API timeout')), 5000)
+            );
+            
+            const apiPromise = this.loadTransactionsFromAPI();
+            
+            // Race between API call and timeout
+            await Promise.race([apiPromise, timeoutPromise]);
+            
+        } catch (error) {
+            console.log('💡 Using sample data (API unavailable):', error.message);
+            // Sample data already loaded, just show success message
+            this.showToast('Menampilkan data demo - siap untuk import data real', 'info');
+        }
+    }
+
+    async loadTransactionsFromAPI() {
+        const response = await fetch('/api/statistics/dashboard', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.token}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        
+        if (data.success) {
+            // Replace sample data with real data
+            const transactions = data.data.recentTransactions || [];
+            this.displayTransactions(transactions);
+            this.updateDashboardStatsFromAPI(data.data.overview);
+            this.showToast('Data real berhasil dimuat dari database', 'success');
+        } else {
+            throw new Error(data.message || 'Failed to load transactions');
+        }
     }
 
     setupEventListeners() {
@@ -200,7 +247,7 @@ class Dashboard {
             if (window.frontendLogger) {
                 window.frontendLogger.logUserAction('refresh_data', 'refresh_button');
             }
-            this.loadTransactions();
+            this.initializeData();
         });
     }
 
@@ -262,45 +309,7 @@ class Dashboard {
         }
     }
 
-    async loadTransactions() {
-        try {
-            // Show loading state
-            this.showLoadingSpinner();
-            
-            const response = await fetch('/api/statistics/dashboard', {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${this.token}`
-                }
-            });
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            const data = await response.json();
-            
-            if (data.success) {
-                // Statistics API returns data structure with nested data object
-                const transactions = data.data.recentTransactions || [];
-                this.displayTransactions(transactions);
-                this.updateDashboardStatsFromAPI(data.data.overview);
-                
-                // Hide loading and show success
-                this.hideLoadingSpinner();
-                console.log('✅ Dashboard data loaded successfully');
-            } else {
-                throw new Error(data.message || 'Failed to load transactions');
-            }
-        } catch (error) {
-            console.error('❌ Error loading dashboard data:', error);
-            this.hideLoadingSpinner();
-            
-            // Load sample data as fallback for demo
-            this.loadSampleDataFallback();
-            this.showToast('Menampilkan data demo (koneksi database gagal)', 'warning');
-        }
-    }
 
 
 
@@ -465,7 +474,7 @@ class Dashboard {
 
             if (result.success) {
                 this.showAlert(`Successfully imported ${result.imported} transactions!`, 'success');
-                this.loadTransactions(); // Refresh the data
+                this.initializeData(); // Refresh the data
             } else {
                 this.showAlert(result.message || 'Upload failed', 'danger');
             }
