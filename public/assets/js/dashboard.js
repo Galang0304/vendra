@@ -264,9 +264,13 @@ class Dashboard {
 
     async loadTransactions() {
         try {
+            // Show loading state
+            this.showLoadingSpinner();
+            
             const response = await fetch('/api/statistics/dashboard', {
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${this.token}`
                 }
             });
 
@@ -282,16 +286,19 @@ class Dashboard {
                 this.displayTransactions(transactions);
                 this.updateDashboardStatsFromAPI(data.data.overview);
                 
-                // Show toast notification for successful data load
-                this.showToast('Data berhasil dimuat dari database', 'success');
+                // Hide loading and show success
+                this.hideLoadingSpinner();
+                console.log('✅ Dashboard data loaded successfully');
             } else {
                 throw new Error(data.message || 'Failed to load transactions');
             }
         } catch (error) {
-            console.error('Error loading transactions:', error);
-            // Show error message instead of sample data
-            this.showLoadingError('Gagal memuat data dari server. Pastikan server berjalan dan database terhubung.');
-            this.showToast('Gagal memuat data dari backend', 'danger');
+            console.error('❌ Error loading dashboard data:', error);
+            this.hideLoadingSpinner();
+            
+            // Load sample data as fallback for demo
+            this.loadSampleDataFallback();
+            this.showToast('Menampilkan data demo (koneksi database gagal)', 'warning');
         }
     }
 
@@ -586,6 +593,71 @@ HOME001,Smart TV 43 inch,Home & Living,Smart TV LED 4K,3200000,2800000,30`;
                 </tr>
             `;
         }
+    }
+
+    showLoadingSpinner() {
+        const tbody = document.getElementById('transactionsTable');
+        if (tbody) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="7" class="text-center py-4">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="mt-2">Memuat data...</div>
+                    </td>
+                </tr>
+            `;
+        }
+    }
+    
+    hideLoadingSpinner() {
+        // Loading will be replaced by actual data or error message
+    }
+    
+    loadSampleDataFallback() {
+        // Sample data for demo when database is not available
+        const sampleTransactions = [
+            {
+                id: 1,
+                customer_name: 'Ahmad Rizki Demo',
+                product_name: 'Smartphone Samsung (Demo)',
+                total_amount: 12000000,
+                transaction_date: '2024-10-01',
+                payment_method: 'Credit Card',
+                transaction_status: 'completed'
+            },
+            {
+                id: 2,
+                customer_name: 'Siti Nurhaliza Demo',
+                product_name: 'Dress Batik Premium (Demo)',
+                total_amount: 1700000,
+                transaction_date: '2024-10-01',
+                payment_method: 'Bank Transfer',
+                transaction_status: 'completed'
+            },
+            {
+                id: 3,
+                customer_name: 'Budi Santoso Demo',
+                product_name: 'Kopi Arabica Premium (Demo)',
+                total_amount: 1250000,
+                transaction_date: '2024-10-02',
+                payment_method: 'Cash',
+                transaction_status: 'pending'
+            }
+        ];
+        
+        this.displayTransactions(sampleTransactions);
+        
+        // Update stats with sample data
+        const sampleStats = {
+            totalCustomers: 156,
+            totalRevenue: 85600000,
+            totalTransactions: 342,
+            averageTransaction: 250292
+        };
+        
+        this.updateDashboardStatsFromAPI(sampleStats);
     }
 
     logout() {
