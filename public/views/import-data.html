@@ -380,50 +380,54 @@
             const progressText = document.getElementById('progressText');
             
             try {
-                // Update progress
-                progressBar.style.width = '10%';
-                progressBar.textContent = '10%';
-                progressText.innerHTML = `
-                    <div class="fw-semibold">Preparing upload...</div>
-                    <small class="text-muted">Getting ready to send files</small>
-                `;
+                // Update progress to show preparation
+                updateProgress(10, 'Preparing upload...', 'Getting ready to send files');
+                await sleep(500); // Small delay for UI feedback
 
                 // Process each file
+                let totalFiles = selectedFiles.length;
+                let importResults = [];
+                
                 for (let i = 0; i < selectedFiles.length; i++) {
                     const file = selectedFiles[i];
                     
-                    // Update progress
-                    const baseProgress = 10 + (i * 80 / selectedFiles.length);
-                    progressBar.style.width = baseProgress + '%';
-                    progressBar.textContent = Math.round(baseProgress) + '%';
-                    progressText.innerHTML = `
-                        <div class="fw-semibold">Uploading ${file.name}...</div>
-                        <small class="text-muted">File ${i + 1} of ${selectedFiles.length}</small>
-                    `;
+                    // Update progress during upload
+                    const uploadProgress = 20 + (i * 60 / totalFiles);
+                    updateProgress(uploadProgress, `Uploading ${file.name}...`, `File ${i + 1} of ${totalFiles}`);
 
                     // Create FormData
                     const formData = new FormData();
                     formData.append('csvFile', file);
 
-                    // Upload file
+                    // Upload file with timeout
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+
                     const response = await fetch(`/api/import/${currentImportType}`, {
                         method: 'POST',
-                        body: formData
+                        body: formData,
+                        signal: controller.signal
                     });
 
+                    clearTimeout(timeoutId);
                     const result = await response.json();
                     
                     if (!result.success) {
                         throw new Error(result.message || 'Import failed');
                     }
 
+                    importResults.push(result);
                     console.log('Import result:', result);
+                    
+                    // Update progress after each file
+                    const processProgress = 80 + (i * 15 / totalFiles);
+                    updateProgress(processProgress, `Processing ${file.name}...`, `${result.data.successful_records} records imported`);
+                    await sleep(300); // Small delay for UI feedback
                 }
 
                 // Complete
-                progressBar.style.width = '100%';
-                progressBar.textContent = '100%';
-                completeRealImport();
+                updateProgress(100, 'Import completed successfully!', 'All files processed');
+                completeRealImport(importResults);
                 
             } catch (error) {
                 console.error('Import error:', error);
@@ -431,30 +435,64 @@
                     <div class="fw-semibold text-danger">Import failed</div>
                     <small class="text-muted">${error.message}</small>
                 `;
-                showToast('Error', 'Import failed: ' + error.message, 'error');
+                showToast('Import failed: ' + error.message, 'error');
             }
         }
 
-        function completeRealImport() {
+        function updateProgress(percentage, title, subtitle) {
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            
+            progressBar.style.width = percentage + '%';
+            progressBar.textContent = Math.round(percentage) + '%';
+            progressText.innerHTML = `
+                <div class="fw-semibold">${title}</div>
+                <small class="text-muted">${subtitle}</small>
+            `;
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        function completeRealImport(importResults) {
             const progressText = document.getElementById('progressText');
             progressText.innerHTML = `
                 <div class="fw-semibold text-success">Import completed successfully!</div>
                 <small class="text-muted">All files have been processed and saved to database</small>
             `;
 
-            // Show results
+            // Calculate real results from import
+            let totalSuccess = 0;
+            let totalErrors = 0;
+            let totalProcessed = 0;
+            
+            importResults.forEach(result => {
+                if (result.data) {
+                    totalSuccess += result.data.successful_records || 0;
+                    totalErrors += result.data.failed_records || 0;
+                    totalProcessed += result.data.total_rows || 0;
+                }
+            });
+
+            // Show real results (not demo data)
             document.getElementById('importResults').style.display = 'block';
-            document.getElementById('successCount').textContent = '15'; // Based on our test CSV
+            document.getElementById('successCount').textContent = totalSuccess;
             document.getElementById('warningCount').textContent = '0';
-            document.getElementById('errorCount').textContent = '0';
-            document.getElementById('totalCount').textContent = '15';
+            document.getElementById('errorCount').textContent = totalErrors;
+            document.getElementById('totalCount').textContent = totalProcessed;
 
-            showToast('Success', 'Data imported to database successfully!', 'success');
+            showToast(`Import completed! ${totalSuccess} records imported successfully.`, 'success');
 
-            // Reset after 5 seconds
+            // Reload import history
+            setTimeout(() => {
+                loadImportHistory();
+            }, 1000);
+
+            // Reset after 8 seconds
             setTimeout(() => {
                 resetImport();
-            }, 5000);
+            }, 8000);
         }
 
         function resetImport() {

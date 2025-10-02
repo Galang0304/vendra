@@ -20,24 +20,14 @@ class Dashboard {
     }
 
     async initializeData() {
-        // Always show sample data first for immediate UI feedback
-        this.loadSampleDataFallback();
-        
-        // Then try to load real data with timeout
+        // Load only real data - no demo/sample data
         try {
-            const timeoutPromise = new Promise((_, reject) => 
-                setTimeout(() => reject(new Error('API timeout')), 5000)
-            );
-            
-            const apiPromise = this.loadTransactionsFromAPI();
-            
-            // Race between API call and timeout
-            await Promise.race([apiPromise, timeoutPromise]);
-            
+            await this.loadTransactionsFromAPI();
         } catch (error) {
-            console.log('💡 Using sample data (API unavailable):', error.message);
-            // Sample data already loaded, just show success message
-            this.showToast('Menampilkan data demo - siap untuk import data real', 'info');
+            console.log('Failed to load data:', error.message);
+            // Show empty state instead of demo data
+            this.loadEmptyState();
+            this.showToast('Belum ada data - silakan import data CSV untuk memulai', 'info');
         }
     }
 
@@ -624,49 +614,40 @@ HOME001,Smart TV 43 inch,Home & Living,Smart TV LED 4K,3200000,2800000,30`;
         // Loading will be replaced by actual data or error message
     }
     
-    loadSampleDataFallback() {
-        // Sample data for demo when database is not available
-        const sampleTransactions = [
-            {
-                id: 1,
-                customer_name: 'Ahmad Rizki Demo',
-                product_name: 'Smartphone Samsung (Demo)',
-                total_amount: 12000000,
-                transaction_date: '2024-10-01',
-                payment_method: 'Credit Card',
-                transaction_status: 'completed'
-            },
-            {
-                id: 2,
-                customer_name: 'Siti Nurhaliza Demo',
-                product_name: 'Dress Batik Premium (Demo)',
-                total_amount: 1700000,
-                transaction_date: '2024-10-01',
-                payment_method: 'Bank Transfer',
-                transaction_status: 'completed'
-            },
-            {
-                id: 3,
-                customer_name: 'Budi Santoso Demo',
-                product_name: 'Kopi Arabica Premium (Demo)',
-                total_amount: 1250000,
-                transaction_date: '2024-10-02',
-                payment_method: 'Cash',
-                transaction_status: 'pending'
-            }
-        ];
+    loadEmptyState() {
+        // Show empty state instead of demo data
+        this.displayTransactions([]);
         
-        this.displayTransactions(sampleTransactions);
-        
-        // Update stats with sample data
-        const sampleStats = {
-            totalCustomers: 156,
-            totalRevenue: 85600000,
-            totalTransactions: 342,
-            averageTransaction: 250292
+        // Set stats to zero
+        const emptyStats = {
+            totalCustomers: 0,
+            totalRevenue: 0,
+            totalTransactions: 0,
+            averageTransaction: 0
         };
         
-        this.updateDashboardStatsFromAPI(sampleStats);
+        this.updateDashboardStatsFromAPI(emptyStats);
+        
+        // Show empty state message in transaction table
+        const tableBody = document.querySelector('#transactionTable tbody');
+        if (tableBody) {
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="6" class="text-center py-5">
+                        <div class="empty-state">
+                            <i class="fas fa-database fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">Belum Ada Data</h5>
+                            <p class="text-muted">
+                                Silakan import data CSV untuk memulai menggunakan dashboard
+                            </p>
+                            <a href="/import-data" class="btn btn-primary">
+                                <i class="fas fa-upload me-2"></i>Import Data Sekarang
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        }
     }
 
     logout() {

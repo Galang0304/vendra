@@ -11,11 +11,11 @@ class VendraStatistics {
     }
 
     init() {
-        // For development/demo, create a temporary token if none exists
+        // Check authentication - redirect if no token
         if (!this.token) {
-            console.log('No token found, creating demo token');
-            this.token = 'demo-token-' + Date.now();
-            localStorage.setItem('token', this.token);
+            console.log('No token found, redirecting to login');
+            window.location.href = '/';
+            return;
         }
 
         this.setupEventListeners();
@@ -1087,9 +1087,9 @@ class VendraStatistics {
 
         console.log('Initializing customer segment chart...');
 
-        // Always use fallback data for demo
+        // Use empty data if no real data available
         const labels = ['VIP', 'Premium', 'Regular', 'New'];
-        const data = [1, 2, 7, 5];
+        const data = [0, 0, 0, 0];
         
         console.log('Chart data:', { labels, data });
         
