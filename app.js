@@ -3,8 +3,8 @@ const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
 
-// Import utilities
-const logger = require('./src/utils/logger');
+// Import utilities - Use Vercel compatible logger in production
+const logger = process.env.VERCEL ? require('./src/utils/logger-vercel') : require('./src/utils/logger');
 const { requestLogger, errorLogger } = require('./src/middleware/logging');
 
 // Import routes

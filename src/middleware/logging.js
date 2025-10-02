@@ -1,5 +1,5 @@
 // Vendra CRM - Logging Middleware
-const logger = require('../utils/logger');
+const logger = process.env.VERCEL ? require('../utils/logger-vercel') : require('../utils/logger');
 
 // Request logging middleware
 const requestLogger = (req, res, next) => {
