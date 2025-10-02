@@ -3,7 +3,10 @@
 ## 📋 INFORMASI DEPLOYMENT
 
 ### 🌐 URL Aplikasi Online
-**Production URL**: https://vendra-82jqcfvum-galang0304s-projects.vercel.app
+**Production URL**: https://vendra-lhpvuifh8-galang0304s-projects.vercel.app
+**Previous URLs**: 
+- https://vendra-82jqcfvum-galang0304s-projects.vercel.app
+- https://vendra-7ox9uypyv-galang0304s-projects.vercel.app
 
 ### 🔐 Login Akun Default
 - **Username**: `admin`
@@ -56,6 +59,30 @@
 - `/setup-online-database.js` - Script setup database online
 - `/.env.vercel` - Environment variables production
 - `/vercel.json` - Konfigurasi deployment Vercel
+
+---
+
+## 🔧 TROUBLESHOOTING YANG DILAKUKAN
+
+### ❌ Masalah yang Dihadapi
+1. **CSS/JS tidak ter-load**: File static tidak bisa diakses karena routing Vercel yang salah
+2. **Login tidak berfungsi**: Button login tidak memberikan response
+3. **Authentication redirect**: Vercel deployment protection menghalangi automated testing
+
+### ✅ Solusi yang Diterapkan
+1. **Perbaikan `vercel.json`**: 
+   - Menambahkan routing untuk static files (CSS, JS, images)
+   - Mengatur routing `/assets/(.*)` dan `/views/(.*)`
+   - Menghapus konflik antara `builds` dan `functions`
+
+2. **Environment Variables Setup**:
+   - Menggunakan script `setup-vercel-env.bat` untuk Windows
+   - Menggunakan script `setup-vercel-env.sh` untuk Linux/Mac
+   - Semua database credentials dan JWT secret sudah diset
+
+3. **Static Files Handling**:
+   - Menghapus duplikasi `express.static()` middleware
+   - Memastikan routing yang tepat untuk file CSS/JS
 
 ---
 

@@ -1,15 +1,17 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "app.js",
-      "use": "@vercel/node"
+  "functions": {
+    "app.js": {
+      "maxDuration": 30
     }
-  ],
+  },
   "routes": [
     {
       "src": "/assets/(.*)",
-      "dest": "/public/assets/$1"
+      "dest": "/public/assets/$1",
+      "headers": {
+        "Cache-Control": "max-age=31536000"
+      }
     },
     {
       "src": "/views/(.*)",
@@ -20,8 +22,11 @@
       "dest": "/app.js"
     },
     {
-      "src": "/(.*\\.(css|js|png|jpg|jpeg|gif|ico|svg))",
-      "dest": "/public/$1"
+      "src": "/(.*\\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot))",
+      "dest": "/public/$1",
+      "headers": {
+        "Cache-Control": "max-age=31536000"
+      }
     },
     {
       "src": "/(.*)",
