@@ -1,3 +1,4 @@
-customer_name,email,phone,product_type,product_name,quantity,unit_price,total_amount,transaction_date,payment_method,status,notes
-John Doe,john.doe@example.com,081234567890,Electronics,Sample Product,1,100000,100000,2024-10-01,Credit Card,Completed,Sample notes
-Jane Smith,jane.smith@example.com,081234567891,Fashion,Sample Item,2,50000,100000,2024-10-02,Bank Transfer,Pending,Replace with your data
+customer_name,email,phone,product_type,purchase_amount,purchase_date,payment_method,sales_rep,customer_segment
+Ahmad Rizki,ahmad.rizki@email.com,081234567890,Electronics,12000000,2024-10-01,Credit Card,John Doe,Premium
+Siti Nurhaliza,siti.nurhaliza@email.com,081234567891,Fashion,1750000,2024-10-01,Bank Transfer,Jane Smith,Regular
+Budi Santoso,budi.santoso@email.com,081234567892,Food & Beverage,850000,2024-10-02,Cash,Mike Johnson,Regular

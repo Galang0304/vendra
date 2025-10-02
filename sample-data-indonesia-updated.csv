@@ -1,0 +1,21 @@
+customer_name,email,phone,product_type,purchase_amount,purchase_date,payment_method,sales_rep,customer_segment
+Andi Wijayanto,andi.wijayanto@gmail.com,081234567890,Electronics,4500000,2024-10-01,OVO,Ahmad Sandi,Premium
+Siti Rahmawati,siti.rahmawati@yahoo.com,082345678901,Fashion,425000,2024-10-01,GoPay,Rina Sari,Regular
+Budi Hartono,budi.hartono@hotmail.com,083456789012,Food & Beverage,275000,2024-10-02,DANA,Tommy Lim,Regular
+Dewi Kusuma,dewi.kusuma@gmail.com,084567890123,Health & Beauty,1250000,2024-10-02,Credit Card,Sarah Chen,Premium
+Agus Setiawan,agus.setiawan@outlook.com,085678901234,Sports,3200000,2024-10-03,Bank Transfer,Mike Wong,VIP
+Rina Marlina,rina.marlina@gmail.com,086789012345,Electronics,7800000,2024-10-03,Credit Card,Lisa Tan,VIP
+Hendra Pratama,hendra.pratama@yahoo.com,087890123456,Automotive,15500000,2024-10-04,Bank Transfer,David Kim,VIP
+Maya Indira,maya.indira@gmail.com,088901234567,Fashion,980000,2024-10-04,Cash,Emma Lee,Regular
+Rudi Santoso,rudi.santoso@gmail.com,089012345678,Food & Beverage,1100000,2024-10-05,Credit Card,John Park,Regular
+Lina Suryani,lina.suryani@hotmail.com,081123456789,Health & Beauty,1750000,2024-10-05,Bank Transfer,Sophie Liu,Premium
+Doni Permana,doni.permana@gmail.com,082234567890,Electronics,2300000,2024-10-06,OVO,Kevin Tan,Regular
+Sari Wulandari,sari.wulandari@yahoo.com,083345678901,Fashion,650000,2024-10-06,GoPay,Jenny Wong,Regular
+Bayu Nugroho,bayu.nugroho@gmail.com,084456789012,Sports,1850000,2024-10-07,DANA,Alex Chen,Premium
+Citra Dewi,citra.dewi@outlook.com,085567890123,Health & Beauty,920000,2024-10-07,Credit Card,Grace Kim,Regular
+Fajar Ramadhan,fajar.ramadhan@gmail.com,086678901234,Automotive,4200000,2024-10-08,Bank Transfer,Daniel Lee,Premium
+Indah Permata,indah.permata@yahoo.com,087789012345,Electronics,6500000,2024-10-08,Credit Card,Michelle Lim,VIP
+Joko Widodo,joko.widodo@gmail.com,088890123456,Food & Beverage,1450000,2024-10-09,Cash,Tony Chen,Regular
+Kartika Sari,kartika.sari@hotmail.com,089901234567,Fashion,1120000,2024-10-09,Bank Transfer,Amy Wang,Regular
+Lukman Hakim,lukman.hakim@gmail.com,081012345678,Sports,2750000,2024-10-10,Credit Card,Steven Liu,Premium
+Nina Wijaya,nina.wijaya@yahoo.com,082123456789,Health & Beauty,1380000,2024-10-10,OVO,Rachel Park,Regular

@@ -1,4 +1,4 @@
-customer_name,email,phone,product_type,product_name,quantity,unit_price,total_amount,transaction_date,payment_method,status,notes
+customer_name,email,phone,product_type,purchase_amount,purchase_date,payment_method,sales_rep,customer_segment,status,notes
 Andi Wijayanto,andi.wijayanto@gmail.com,081234567890,Electronics,Samsung Galaxy A54,1,4500000,4500000,2024-10-01,OVO,Completed,Cashback 10%
 Siti Rahmawati,siti.rahmawati@yahoo.com,082345678901,Fashion,Hijab Voal Premium,5,85000,425000,2024-10-01,GoPay,Completed,Grosir
 Budi Hartono,budi.hartono@outlook.com,083456789012,Food & Beverage,Nasi Gudeg Yogya,10,25000,250000,2024-10-01,Cash,Completed,Pesanan catering

@@ -81,14 +81,8 @@ router.post('/customer-transactions', upload.single('csvFile'), async (req, res)
                         console.log(`Processing row ${index + 1}:`, row);
                         
                         try {
-                            // Validate required fields
-                            const requiredFields = [
-                                'unique_customer_id', 
-                                'customer_name', 
-                                'product_type', 
-                                'total_amount', 
-                                'transaction_date'
-                            ];
+                            // Validate required fields based on actual database structure
+                            const requiredFields = ['customer_name'];
                             
                             const missingFields = requiredFields.filter(field => !row[field]);
                             if (missingFields.length > 0) {
@@ -100,26 +94,23 @@ router.post('/customer-transactions', upload.single('csvFile'), async (req, res)
                                 continue;
                             }
 
-                            // Insert transaction
-                            console.log('Inserting transaction for:', row.unique_customer_id);
+                            // Insert transaction with correct database structure
+                            console.log('Inserting transaction for:', row.customer_name);
                             const result = await pool.execute(`
                                 INSERT INTO customer_transactions 
-                                (unique_customer_id, customer_name, customer_email, customer_phone, 
-                                 product_type, product_name, quantity, unit_price, total_amount, 
-                                 transaction_date, payment_method) 
-                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                                (customer_name, email, phone, product_type, purchase_amount, 
+                                 purchase_date, payment_method, sales_rep, customer_segment) 
+                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                             `, [
-                                row.unique_customer_id,
                                 row.customer_name,
-                                row.customer_email || null,
-                                row.customer_phone || null,
-                                row.product_type,
-                                row.product_name || null,
-                                parseInt(row.quantity) || 1,
-                                parseFloat(row.unit_price) || parseFloat(row.total_amount) || 0,
-                                parseFloat(row.total_amount),
-                                row.transaction_date,
-                                row.payment_method || 'cash'
+                                row.email || null,
+                                row.phone || null,
+                                row.product_type || null,
+                                parseFloat(row.purchase_amount) || 0,
+                                row.purchase_date || null,
+                                row.payment_method || null,
+                                row.sales_rep || null,
+                                row.customer_segment || null
                             ]);
                             console.log('Insert successful, insertId:', result[0].insertId);
 
@@ -133,19 +124,18 @@ router.post('/customer-transactions', upload.single('csvFile'), async (req, res)
                         }
                     }
 
-                    // Record import history
+                    // Record import history with correct database structure
                     await pool.execute(`
                         INSERT INTO import_history 
-                        (original_filename, file_type, total_records, successful_records, failed_records, status, import_date, notes, created_at) 
-                        VALUES (?, ?, ?, ?, ?, ?, NOW(), ?, NOW())
+                        (original_filename, total_rows, successful_rows, failed_rows, status, import_date, file_size) 
+                        VALUES (?, ?, ?, ?, ?, NOW(), ?)
                     `, [
                         req.file.originalname,
-                        'customer-transactions',
                         processedCount,
                         successCount,
                         errors.length,
-                        errors.length === 0 ? 'completed' : 'completed_with_errors',
-                        errors.length > 0 ? `Errors: ${errors.slice(0, 3).map(e => `Row ${e.row}: ${e.error}`).join('; ')}` : null
+                        errors.length === 0 ? 'completed' : 'failed',
+                        req.file.size || 0
                     ]);
 
                     // Clean up uploaded file
@@ -226,44 +216,38 @@ router.post('/customer-transactions', upload.single('csvFile'), async (req, res)
 router.get('/template/customer-transactions', (req, res) => {
     // Header dengan keterangan yang jelas
     const headers = [
-        'unique_customer_id', 
         'customer_name', 
-        'customer_email', 
-        'customer_phone', 
+        'email', 
+        'phone',
         'product_type', 
-        'product_name', 
-        'quantity', 
-        'unit_price', 
-        'total_amount', 
-        'transaction_date', 
-        'payment_method'
-    ];
-    
-    // Baris keterangan untuk membantu user
-    const descriptions = [
-        'ID Unik Customer (wajib)', 
-        'Nama Lengkap Customer (wajib)', 
-        'Email Customer (opsional)', 
-        'No. HP Customer (opsional)', 
-        'Kategori Produk (wajib)', 
-        'Nama Produk (opsional)', 
-        'Jumlah Qty (angka)', 
-        'Harga per Unit (angka)', 
-        'Total Harga (wajib/angka)', 
-        'Tanggal (YYYY-MM-DD HH:MM:SS)', 
-        'Metode Bayar'
+        'purchase_amount', 
+        'purchase_date', 
+        'payment_method',
+        'sales_rep',
+        'customer_segment'
+    ];    // Baris keterangan untuk membantu user
+        const descriptions = [
+        'Nama Lengkap Customer', 
+        'Email Valid', 
+        'No HP (08xxx)', 
+        'Kategori Produk', 
+        'Total Pembelian (angka)', 
+        'Tanggal (YYYY-MM-DD)', 
+        'Metode Bayar',
+        'Nama Sales Rep',
+        'Segmen Customer'
     ];
     
     // Data contoh yang mudah dipahami dan diikuti
     const sampleData = [
-        ['CUST001', 'John Doe', 'john@email.com', '081234567890', 'Electronics', 'Laptop Gaming', '1', '15000000', '15000000', '2024-12-01 09:00:00', 'credit_card'],
-        ['CUST002', 'Jane Smith', 'jane@email.com', '081987654321', 'Fashion', 'Dress Formal', '2', '500000', '1000000', '2024-12-01 10:30:00', 'bank_transfer'],
-        ['CUST003', 'Ahmad Ali', 'ahmad@email.com', '081555123456', 'Books', 'Novel Bestseller', '1', '150000', '150000', '2024-12-01 14:15:00', 'e_wallet'],
-        ['', '', '', '', '', '', '', '', '', '', ''], // Baris kosong - isi data Anda di sini
-        ['', '', '', '', '', '', '', '', '', '', ''], // Baris kosong - isi data Anda di sini
-        ['', '', '', '', '', '', '', '', '', '', ''], // Baris kosong - isi data Anda di sini
-        ['', '', '', '', '', '', '', '', '', '', ''], // Baris kosong - isi data Anda di sini
-        ['', '', '', '', '', '', '', '', '', '', '']  // Baris kosong - isi data Anda di sini
+        ['Ahmad Rizki', 'ahmad.rizki@email.com', '081234567890', 'Electronics', '12000000', '2024-10-01', 'Credit Card', 'John Doe', 'Premium'],
+        ['Siti Nurhaliza', 'siti.nurhaliza@email.com', '081987654321', 'Fashion', '1750000', '2024-10-01', 'Bank Transfer', 'Jane Smith', 'Regular'],
+        ['Budi Santoso', 'budi.santoso@email.com', '081555123456', 'Food & Beverage', '850000', '2024-10-02', 'Cash', 'Mike Johnson', 'Regular'],
+        ['', '', '', '', '', '', '', '', ''], // Baris kosong - isi data Anda di sini
+        ['', '', '', '', '', '', '', '', ''], // Baris kosong - isi data Anda di sini
+        ['', '', '', '', '', '', '', '', ''], // Baris kosong - isi data Anda di sini
+        ['', '', '', '', '', '', '', '', ''], // Baris kosong - isi data Anda di sini
+        ['', '', '', '', '', '', '', '', '']  // Baris kosong - isi data Anda di sini
     ];
     
     // Generate CSV dengan format yang rapih dan user-friendly
@@ -275,11 +259,12 @@ router.get('/template/customer-transactions', (req, res) => {
     csvContent += '"╚═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝"\n';
     csvContent += '""\n';
     csvContent += '"PETUNJUK PENGISIAN:"\n';
-    csvContent += '"1. ISI DATA MULAI DARI BARIS SETELAH HEADER (baris dengan kolom: unique_customer_id, customer_name, dll)"\n';
+    csvContent += '"1. ISI DATA MULAI DARI BARIS SETELAH HEADER (baris dengan kolom: customer_name, email, dll)"\n';
     csvContent += '"2. HAPUS semua baris petunjuk ini sebelum upload file"\n';
     csvContent += '"3. JANGAN UBAH nama kolom header"\n';
-    csvContent += '"4. Gunakan format tanggal: YYYY-MM-DD HH:MM:SS (contoh: 2024-12-01 09:00:00)"\n';
-    csvContent += '"5. Total amount tanpa tanda titik/koma (contoh: 5000000 bukan 5.000.000)"\n';
+    csvContent += '"4. Gunakan format tanggal: YYYY-MM-DD (contoh: 2024-10-01)"\n';
+    csvContent += '"5. Purchase amount tanpa tanda titik/koma (contoh: 5000000 bukan 5.000.000)"\n';
+    csvContent += '"6. Customer segment: VIP, Premium, Regular"\n';
     csvContent += '""\n';
     csvContent += '"KATEGORI PRODUK yang tersedia:"\n';
     csvContent += '"Electronics, Fashion, Books, Home & Living, Sports, Health & Beauty, Food & Beverage, Automotive"\n';

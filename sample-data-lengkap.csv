@@ -1,4 +1,4 @@
-customer_name,email,phone,product_type,product_name,quantity,unit_price,total_amount,transaction_date,payment_method,status,notes
+customer_name,email,phone,product_type,purchase_amount,purchase_date,payment_method,sales_rep,customer_segment,status,notes
 Ahmad Rizki,ahmad.rizki@email.com,081234567890,Electronics,Smartphone Samsung Galaxy S24,1,12000000,12000000,2024-10-01,Credit Card,Completed,Customer loyal
 Siti Nurhaliza,siti.nur@email.com,081234567891,Fashion,Dress Batik Premium,2,850000,1700000,2024-10-01,Bank Transfer,Completed,Pesanan khusus
 Budi Santoso,budi.santoso@email.com,081234567892,Food & Beverage,Kopi Arabica Premium 1kg,5,250000,1250000,2024-10-01,Cash,Completed,Pembeli grosir
