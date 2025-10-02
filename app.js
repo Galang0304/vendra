@@ -29,7 +29,8 @@ app.use(requestLogger);
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
-// Routes
+
+// API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/import', importRoutes);
@@ -37,9 +38,6 @@ app.use('/api/logs', logsRoutes);
 app.use('/api/statistics', statisticsRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/chat-history', chatHistoryRoutes);
-
-// Serve static files
-app.use(express.static('public'));
 
 // Routes
 app.get('/', (req, res) => {

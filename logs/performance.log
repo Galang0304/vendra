@@ -1,0 +1,6 @@
+{"timestamp":"2025-10-01 19:24:59","level":"PERF","message":"Slow request","duration":"6633ms","method":"POST","url":"/api/ai/chat","statusCode":200}
+{"timestamp":"2025-10-01 19:25:31","level":"PERF","message":"Slow request","duration":"6171ms","method":"POST","url":"/api/ai/chat","statusCode":200}
+{"timestamp":"2025-10-01 19:25:56","level":"PERF","message":"Slow request","duration":"7055ms","method":"POST","url":"/api/ai/chat","statusCode":200}
+{"timestamp":"2025-10-02 05:24:16","level":"PERF","message":"Slow request","duration":"6623ms","method":"POST","url":"/api/ai/chat","statusCode":200}
+{"timestamp":"2025-10-02 05:25:28","level":"PERF","message":"Slow request","duration":"5496ms","method":"POST","url":"/api/ai/chat","statusCode":200}
+{"timestamp":"2025-10-02 07:01:24","level":"PERF","message":"Slow request","duration":"2335ms","method":"GET","url":"/api/statistics/dashboard","statusCode":304}
