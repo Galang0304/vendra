@@ -11,6 +11,47 @@
     <link href="/assets/css/mobile.css" rel="stylesheet">
     <link href="/assets/css/dashboard-mobile.css" rel="stylesheet">
     <link href="/assets/css/bottom-nav.css" rel="stylesheet">
+    <style>
+        /* Critical CSS for Vercel deployment */
+        :root {
+            --vendra-primary: #1F3A93;
+            --vendra-accent: #2ECC71;
+            --vendra-gradient-primary: linear-gradient(135deg, #1F3A93 0%, #2ECC71 100%);
+            --vendra-gradient-accent: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);
+            --vendra-shadow-xl: 0 20px 40px rgba(31, 58, 147, 0.25);
+            --vendra-font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        body {
+            font-family: var(--vendra-font-family);
+            background-color: #f8f9fa;
+        }
+        
+        .main-content {
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+        
+        .stats-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border: none;
+        }
+        
+        .vendra-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: none;
+        }
+        
+        .table th, .table td {
+            vertical-align: middle;
+            border-color: #f0f0f0;
+        }
+    </style>
 </head>
 <body>
     <!-- Vendra Navbar Component -->
@@ -149,7 +190,6 @@
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/error-logger.js"></script>
     <script src="/assets/js/navbar.js"></script>
