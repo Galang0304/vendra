@@ -9,6 +9,28 @@ class VendraSidebar {
         await this.loadSidebar();
         this.setupEventListeners();
         this.setActiveNavigation();
+        // Start persistent sidebar monitoring
+        this.startSidebarMonitoring();
+    }
+
+    startSidebarMonitoring() {
+        // Check every 500ms if sidebar exists
+        this.monitorInterval = setInterval(() => {
+            if (!document.querySelector('.sidebar')) {
+                console.log('Sidebar missing, reloading...');
+                this.loadSidebar();
+            }
+        }, 500);
+        
+        // Also check on window focus
+        window.addEventListener('focus', () => {
+            setTimeout(() => {
+                if (!document.querySelector('.sidebar')) {
+                    console.log('Sidebar missing on focus, reloading...');
+                    this.loadSidebar();
+                }
+            }, 100);
+        });
     }
 
     getCurrentPage() {
@@ -50,14 +72,19 @@ class VendraSidebar {
 
     async loadSidebar() {
         try {
-                // Remove any existing sidebars first
+            // Remove any existing sidebars first
             this.removeExistingSidebars();
             
-            // Check if sidebar already exists after cleanup
-            if (document.querySelector('.sidebar')) {
-                console.log('Sidebar already exists, skipping load');
+            // Force load even if sidebar exists (for navigation cases)
+            const existingSidebar = document.querySelector('.sidebar');
+            if (existingSidebar && !this.forceReload) {
+                console.log('Sidebar already exists, refreshing state');
+                this.setupEventListeners();
+                this.setActiveNavigation();
                 return;
             }
+            
+            console.log('Loading sidebar from server...');
 
             const response = await fetch('/views/components/sidebar.html');
             if (!response.ok) {
@@ -90,10 +117,13 @@ class VendraSidebar {
 
         } catch (error) {
             console.error('Error loading sidebar:', error);
-            // Retry after 1 second
+            // Retry after 1 second with force reload
             setTimeout(() => {
+                this.forceReload = true;
                 this.loadSidebar();
             }, 1000);
+        } finally {
+            this.forceReload = false;
         }
     }
 
@@ -473,12 +503,29 @@ window.addEventListener('load', function() {
     }
 });
 
-// Check sidebar periodically
+// Check sidebar periodically with more frequency
 setInterval(() => {
     if (window.vendraSidebar) {
         window.vendraSidebar.ensureSidebar();
+        // Force check if sidebar exists
+        if (!document.querySelector('.sidebar')) {
+            console.log('Periodic check: Sidebar missing, reloading...');
+            window.vendraSidebar.forceReload = true;
+            window.vendraSidebar.loadSidebar();
+        }
     }
-}, 2000);
+}, 1000);
+
+// Listen for navigation events (including browser back/forward)
+window.addEventListener('popstate', function() {
+    console.log('Navigation detected, ensuring sidebar...');
+    setTimeout(() => {
+        if (window.vendraSidebar) {
+            window.vendraSidebar.forceReload = true;
+            window.vendraSidebar.loadSidebar();
+        }
+    }, 100);
+});
 
 // Handle page visibility changes
 document.addEventListener('visibilitychange', function() {

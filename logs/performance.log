@@ -5,3 +5,4 @@
 {"timestamp":"2025-10-02 05:25:28","level":"PERF","message":"Slow request","duration":"5496ms","method":"POST","url":"/api/ai/chat","statusCode":200}
 {"timestamp":"2025-10-02 07:01:24","level":"PERF","message":"Slow request","duration":"2335ms","method":"GET","url":"/api/statistics/dashboard","statusCode":304}
 {"timestamp":"2025-10-02 07:06:31","level":"PERF","message":"Slow request","duration":"2601ms","method":"GET","url":"/api/statistics/dashboard","statusCode":304}
+{"timestamp":"2025-10-02 07:26:08","level":"PERF","message":"Slow request","duration":"2245ms","method":"POST","url":"/api/chat-history/sessions","statusCode":500}
