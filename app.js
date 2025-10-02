@@ -24,6 +24,13 @@ app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
+// Increase timeout for import operations
+app.use('/api/import', (req, res, next) => {
+    req.setTimeout(300000); // 5 minutes for import operations
+    res.setTimeout(300000);
+    next();
+});
+
 // Logging middleware
 app.use(requestLogger);
 

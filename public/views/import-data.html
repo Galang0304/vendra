@@ -399,25 +399,29 @@
                     const formData = new FormData();
                     formData.append('csvFile', file);
 
-                    // Upload file with timeout
-                    const controller = new AbortController();
-                    const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
-
+                    // Upload file (remove timeout controller to prevent abort issues)
                     const response = await fetch(`/api/import/${currentImportType}`, {
                         method: 'POST',
-                        body: formData,
-                        signal: controller.signal
+                        body: formData
+                        // Removed signal/timeout - let browser handle timeouts naturally
                     });
+                    // Check response status first
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        console.error('HTTP Error:', response.status, errorText);
+                        throw new Error(`Server error (${response.status}): ${errorText}`);
+                    }
 
-                    clearTimeout(timeoutId);
                     const result = await response.json();
+                    console.log('Import response:', result);
                     
                     if (!result.success) {
+                        console.error('Import failed:', result.message);
                         throw new Error(result.message || 'Import failed');
                     }
 
                     importResults.push(result);
-                    console.log('Import result:', result);
+                    console.log('Import successful for file:', file.name, 'Records:', result.data?.successful_records);
                     
                     // Update progress after each file
                     const processProgress = 80 + (i * 15 / totalFiles);
@@ -431,11 +435,30 @@
                 
             } catch (error) {
                 console.error('Import error:', error);
+                
+                // Better error message handling
+                let errorMessage = error.message;
+                if (error.message.includes('aborted')) {
+                    errorMessage = 'Import was cancelled. Please try again with a smaller file.';
+                } else if (error.message.includes('Failed to fetch')) {
+                    errorMessage = 'Network error. Please check your connection and try again.';
+                } else if (error.message.includes('timeout')) {
+                    errorMessage = 'Import took too long. Please try with a smaller file.';
+                }
+                
+                const progressText = document.getElementById('progressText');
                 progressText.innerHTML = `
                     <div class="fw-semibold text-danger">Import failed</div>
-                    <small class="text-muted">${error.message}</small>
+                    <small class="text-muted">${errorMessage}</small>
                 `;
-                showToast('Import failed: ' + error.message, 'error');
+                
+                showToast('Import failed: ' + errorMessage, 'error');
+                
+                // Show import form again after error
+                setTimeout(() => {
+                    document.getElementById('importProgress').style.display = 'none';
+                    document.getElementById('uploadArea').style.display = 'block';
+                }, 3000);
             }
         }
 

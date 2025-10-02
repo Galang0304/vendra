@@ -41,11 +41,20 @@ router.post('/customer-transactions', upload.single('csvFile'), async (req, res)
     try {
         console.log('=== IMPORT STARTED ===');
         console.log('File received:', req.file ? req.file.originalname : 'None');
+        console.log('File size:', req.file ? req.file.size : 'N/A');
         
         if (!req.file) {
             return res.status(400).json({
                 success: false,
                 message: 'No CSV file uploaded'
+            });
+        }
+
+        // Check file size
+        if (req.file.size > 10 * 1024 * 1024) {
+            return res.status(400).json({
+                success: false,
+                message: 'File too large. Maximum size is 10MB.'
             });
         }
 
@@ -186,10 +195,29 @@ router.post('/customer-transactions', upload.single('csvFile'), async (req, res)
 
     } catch (error) {
         console.error('Import error:', error);
-        res.status(500).json({
+        
+        // Handle specific multer errors
+        let errorMessage = error.message;
+        let statusCode = 500;
+        
+        if (error.code === 'LIMIT_FILE_SIZE') {
+            errorMessage = 'File too large. Maximum size is 10MB.';
+            statusCode = 400;
+        } else if (error.code === 'LIMIT_UNEXPECTED_FILE') {
+            errorMessage = 'Unexpected file field. Please select a CSV file.';
+            statusCode = 400;
+        } else if (error.message.includes('Only CSV files are allowed')) {
+            errorMessage = 'Only CSV files are allowed. Please select a .csv file.';
+            statusCode = 400;
+        } else if (error.message.includes('ENOENT')) {
+            errorMessage = 'File not found. Please try uploading again.';
+        } else if (error.message.includes('ECONNRESET')) {
+            errorMessage = 'Connection was reset. Please try with a smaller file.';
+        }
+        
+        res.status(statusCode).json({
             success: false,
-            message: 'Import failed',
-            error: error.message
+            message: errorMessage
         });
     }
 });
