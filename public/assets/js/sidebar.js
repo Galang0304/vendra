@@ -14,23 +14,60 @@ class VendraSidebar {
     }
 
     startSidebarMonitoring() {
-        // Check every 500ms if sidebar exists
+        // Check every 2 seconds (reduced frequency to prevent duplication)
         this.monitorInterval = setInterval(() => {
-            if (!document.querySelector('.sidebar')) {
+            const sidebars = document.querySelectorAll('.sidebar');
+            if (sidebars.length === 0) {
                 console.log('Sidebar missing, reloading...');
                 this.loadSidebar();
+            } else if (sidebars.length > 1) {
+                console.log('Multiple sidebars detected, removing duplicates...');
+                this.removeDuplicateSidebars();
             }
-        }, 500);
+        }, 2000);
         
-        // Also check on window focus
+        // Also check on window focus (with duplicate check)
         window.addEventListener('focus', () => {
             setTimeout(() => {
-                if (!document.querySelector('.sidebar')) {
+                const sidebars = document.querySelectorAll('.sidebar');
+                if (sidebars.length === 0) {
                     console.log('Sidebar missing on focus, reloading...');
                     this.loadSidebar();
+                } else if (sidebars.length > 1) {
+                    console.log('Multiple sidebars on focus, removing duplicates...');
+                    this.removeDuplicateSidebars();
                 }
             }, 100);
         });
+    }
+    
+    removeDuplicateSidebars() {
+        const sidebars = document.querySelectorAll('.sidebar');
+        // Keep only the first sidebar, remove the rest
+        for (let i = 1; i < sidebars.length; i++) {
+            if (sidebars[i] && sidebars[i].parentNode) {
+                sidebars[i].parentNode.removeChild(sidebars[i]);
+                console.log('Removed duplicate sidebar #' + (i + 1));
+            }
+        }
+        
+        // Also remove duplicate mobile sidebars
+        const mobileSidebars = document.querySelectorAll('#mobileSidebar');
+        for (let i = 1; i < mobileSidebars.length; i++) {
+            if (mobileSidebars[i] && mobileSidebars[i].parentNode) {
+                mobileSidebars[i].parentNode.removeChild(mobileSidebars[i]);
+                console.log('Removed duplicate mobile sidebar #' + (i + 1));
+            }
+        }
+        
+        // Remove duplicate overlays
+        const overlays = document.querySelectorAll('#mobileSidebarOverlay');
+        for (let i = 1; i < overlays.length; i++) {
+            if (overlays[i] && overlays[i].parentNode) {
+                overlays[i].parentNode.removeChild(overlays[i]);
+                console.log('Removed duplicate overlay #' + (i + 1));
+            }
+        }
     }
 
     getCurrentPage() {
@@ -72,15 +109,24 @@ class VendraSidebar {
 
     async loadSidebar() {
         try {
+            // STRICT CHECK: Only allow one sidebar instance
+            const existingSidebar = document.querySelector('.sidebar');
+            if (existingSidebar && !this.forceReload) {
+                console.log('Sidebar already exists, skipping load to prevent duplication');
+                this.setupEventListeners();
+                this.setActiveNavigation();
+                return;
+            }
+            
             // Remove any existing sidebars first
             this.removeExistingSidebars();
             
-            // Force load even if sidebar exists (for navigation cases)
-            const existingSidebar = document.querySelector('.sidebar');
-            if (existingSidebar && !this.forceReload) {
-                console.log('Sidebar already exists, refreshing state');
-                this.setupEventListeners();
-                this.setActiveNavigation();
+            // Wait a bit for DOM cleanup
+            await new Promise(resolve => setTimeout(resolve, 50));
+            
+            // Double check no sidebar exists after cleanup
+            if (document.querySelector('.sidebar')) {
+                console.log('Sidebar still exists after cleanup, aborting to prevent duplication');
                 return;
             }
             
@@ -503,18 +549,22 @@ window.addEventListener('load', function() {
     }
 });
 
-// Check sidebar periodically with more frequency
+// Check sidebar periodically (reduced frequency to prevent duplication)
 setInterval(() => {
     if (window.vendraSidebar) {
         window.vendraSidebar.ensureSidebar();
-        // Force check if sidebar exists
-        if (!document.querySelector('.sidebar')) {
+        // Check sidebar count
+        const sidebars = document.querySelectorAll('.sidebar');
+        if (sidebars.length === 0) {
             console.log('Periodic check: Sidebar missing, reloading...');
             window.vendraSidebar.forceReload = true;
             window.vendraSidebar.loadSidebar();
+        } else if (sidebars.length > 1) {
+            console.log('Periodic check: Multiple sidebars detected, removing duplicates...');
+            window.vendraSidebar.removeDuplicateSidebars();
         }
     }
-}, 1000);
+}, 3000); // Increased to 3 seconds
 
 // Listen for navigation events (including browser back/forward)
 window.addEventListener('popstate', function() {

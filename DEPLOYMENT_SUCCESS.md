@@ -3,10 +3,11 @@
 ## 📋 INFORMASI DEPLOYMENT
 
 ### 🌐 URL Aplikasi Online
-**Production URL (LATEST)**: https://vendra-bbu4aszmt-galang0304s-projects.vercel.app
+**Production URL (LATEST)**: https://vendra-lz8egx8xy-galang0304s-projects.vercel.app
 
 **Changelog URLs**:
-- ✅ v2.4: https://vendra-bbu4aszmt-galang0304s-projects.vercel.app (FIXED: Infinite loading issue)
+- ✅ v2.5: https://vendra-lz8egx8xy-galang0304s-projects.vercel.app (FIXED: Sidebar persistence on navigation)
+- v2.4: https://vendra-bbu4aszmt-galang0304s-projects.vercel.app (FIXED: Infinite loading issue)
 - v2.3: https://vendra-lotxruzvj-galang0304s-projects.vercel.app (Fixed sidebar, loading, chat)
 - v2.2: https://vendra-6dx8hdwgn-galang0304s-projects.vercel.app (Fixed CSS styling)
 - v2.1: https://vendra-lhpvuifh8-galang0304s-projects.vercel.app (Fixed routing)
