@@ -1,0 +1,32 @@
+customer_name,email,phone,product_type,product_name,quantity,unit_price,total_amount,transaction_date,payment_method,status,notes
+Ahmad Rizki,ahmad.rizki@email.com,081234567890,Electronics,Smartphone Samsung Galaxy S24,1,12000000,12000000,2024-10-01,Credit Card,Completed,Customer loyal
+Siti Nurhaliza,siti.nur@email.com,081234567891,Fashion,Dress Batik Premium,2,850000,1700000,2024-10-01,Bank Transfer,Completed,Pesanan khusus
+Budi Santoso,budi.santoso@email.com,081234567892,Food & Beverage,Kopi Arabica Premium 1kg,5,250000,1250000,2024-10-01,Cash,Completed,Pembeli grosir
+Dewi Lestari,dewi.lestari@email.com,081234567893,Health & Beauty,Skincare Set Complete,1,750000,750000,2024-10-02,Credit Card,Completed,First time buyer
+Andi Wijaya,andi.wijaya@email.com,081234567894,Sports,Sepatu Lari Nike Air Max,1,2500000,2500000,2024-10-02,E-Wallet,Completed,Member VIP
+Maya Sari,maya.sari@email.com,081234567895,Electronics,Laptop ASUS ROG Gaming,1,18000000,18000000,2024-10-02,Bank Transfer,Pending,Konfirmasi pembayaran
+Riko Pratama,riko.pratama@email.com,081234567896,Automotive,Ban Mobil Set 4pcs,1,3200000,3200000,2024-10-02,Credit Card,Completed,Instalasi gratis
+Indira Putri,indira.putri@email.com,081234567897,Fashion,Tas Kulit Branded,1,1800000,1800000,2024-10-03,Cash,Completed,Limited edition
+Hendra Gunawan,hendra.gunawan@email.com,081234567898,Food & Beverage,Paket Catering Harian,30,50000,1500000,2024-10-03,Bank Transfer,Completed,Kontrak bulanan
+Lina Marlina,lina.marlina@email.com,081234567899,Health & Beauty,Vitamin Set Premium,3,400000,1200000,2024-10-03,E-Wallet,Completed,Reseller
+Fajar Nugraha,fajar.nugraha@email.com,081234567800,Sports,Raket Badminton Yonex,1,1200000,1200000,2024-10-03,Credit Card,Completed,Tournament grade
+Sari Dewi,sari.dewi@email.com,081234567801,Electronics,Smart TV 55 inch Samsung,1,8500000,8500000,2024-10-04,Bank Transfer,Completed,Promo spesial
+Agus Setiawan,agus.setiawan@email.com,081234567802,Automotive,Oli Mobil Synthetic 4L,2,350000,700000,2024-10-04,Cash,Completed,Service rutin
+Rina Kartika,rina.kartika@email.com,081234567803,Fashion,Hijab Silk Collection,5,180000,900000,2024-10-04,E-Wallet,Completed,Koleksi baru
+Dodi Hermawan,dodi.hermawan@email.com,081234567804,Food & Beverage,Snack Box Premium,20,75000,1500000,2024-10-04,Bank Transfer,Completed,Event kantor
+Wati Suhartini,wati.suhartini@email.com,081234567805,Health & Beauty,Masker Wajah Organic,10,65000,650000,2024-10-05,Credit Card,Completed,Bulk order
+Yudi Prasetyo,yudi.prasetyo@email.com,081234567806,Sports,Jersey Tim Nasional,2,450000,900000,2024-10-05,Cash,Completed,Limited edition
+Mega Lestari,mega.lestari@email.com,081234567807,Electronics,Headphone Sony WH-1000XM5,1,4500000,4500000,2024-10-05,E-Wallet,Pending,Stock checking
+Bambang Sutrisno,bambang.sutrisno@email.com,081234567808,Automotive,Car Wash Kit Premium,1,850000,850000,2024-10-05,Bank Transfer,Completed,Complete set
+Nurul Hidayah,nurul.hidayah@email.com,081234567809,Fashion,Sepatu High Heels Import,1,1200000,1200000,2024-10-06,Credit Card,Completed,Size 37
+Joko Widodo,joko.widodo@email.com,081234567810,Food & Beverage,Paket Nasi Box Deluxe,50,35000,1750000,2024-10-06,Bank Transfer,Completed,Acara pernikahan
+Ratna Sari,ratna.sari@email.com,081234567811,Health & Beauty,Essential Oil Set,1,950000,950000,2024-10-06,E-Wallet,Completed,Aromatherapy
+Irwan Setiawan,irwan.setiawan@email.com,081234567812,Sports,Alat Fitness Home Gym,1,5500000,5500000,2024-10-06,Credit Card,Pending,Pengiriman besar
+Lisa Maharani,lisa.maharani@email.com,081234567813,Electronics,iPhone 15 Pro Max,1,19000000,19000000,2024-10-07,Bank Transfer,Completed,Garansi resmi
+Eko Prasetyo,eko.prasetyo@email.com,081234567814,Automotive,GPS Navigator Premium,1,2200000,2200000,2024-10-07,Cash,Completed,Installation included
+Diana Putri,diana.putri@email.com,081234567815,Fashion,Wedding Dress Custom,1,8500000,8500000,2024-10-07,Bank Transfer,Processing,Fitting appointment
+Hendri Susanto,hendri.susanto@email.com,081234567816,Food & Beverage,Kue Tart Custom 3 Tier,1,1200000,1200000,2024-10-07,E-Wallet,Completed,Birthday special
+Sandra Dewi,sandra.dewi@email.com,081234567817,Health & Beauty,Hair Treatment Package,1,1500000,1500000,2024-10-08,Credit Card,Completed,Premium service
+Rizky Andrian,rizky.andrian@email.com,081234567818,Sports,Bola Futsal Official,2,380000,760000,2024-10-08,Cash,Completed,Match quality
+Putri Ayu,putri.ayu@email.com,081234567819,Electronics,MacBook Air M3,1,22000000,22000000,2024-10-08,Bank Transfer,Completed,Student discount
+Wahyu Hidayat,wahyu.hidayat@email.com,081234567820,Automotive,Velg Racing 18 inch,4,1800000,7200000,2024-10-08,Credit Card,Processing,Custom order

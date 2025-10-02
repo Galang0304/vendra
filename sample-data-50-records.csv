@@ -1,0 +1,51 @@
+customer_name,email,phone,product_type,product_name,quantity,unit_price,total_amount,transaction_date,payment_method,status,notes
+Abdullah Rahman,abdullah.rahman@email.com,081234500001,Electronics,Smart Watch Apple Series 9,1,6500000,6500000,2024-09-15,Credit Card,Completed,Pre-order customer
+Siti Aisyah,siti.aisyah@email.com,081234500002,Fashion,Kemeja Batik Eksklusif,3,420000,1260000,2024-09-15,Bank Transfer,Completed,Corporate order
+Bayu Kristanto,bayu.kristanto@email.com,081234500003,Food & Beverage,Paket Katering Mingguan,7,180000,1260000,2024-09-16,E-Wallet,Completed,Subscription service
+Citra Ningrum,citra.ningrum@email.com,081234500004,Health & Beauty,Serum Anti Aging Premium,2,850000,1700000,2024-09-16,Credit Card,Completed,Skincare enthusiast
+Dimas Pratama,dimas.pratama@email.com,081234500005,Sports,Sepeda Gunung MTB,1,4500000,4500000,2024-09-17,Bank Transfer,Completed,Trail ready
+Evi Susanti,evi.susanti@email.com,081234500006,Automotive,Dashboard Camera 4K,1,1200000,1200000,2024-09-17,Cash,Completed,Safety first
+Faisal Akbar,faisal.akbar@email.com,081234500007,Electronics,Gaming Console PS5,1,7500000,7500000,2024-09-18,Credit Card,Pending,Stock limited
+Gita Maharani,gita.maharani@email.com,081234500008,Fashion,Gaun Pesta Malam,1,2800000,2800000,2024-09-18,Bank Transfer,Completed,Custom fitting
+Herman Wijaya,herman.wijaya@email.com,081234500009,Food & Beverage,Wine Collection Import,6,450000,2700000,2024-09-19,E-Wallet,Completed,Special occasion
+Indah Permata,indah.permata@email.com,081234500010,Health & Beauty,Makeup Set Professional,1,1250000,1250000,2024-09-19,Credit Card,Completed,Artist grade
+Jaka Sembiring,jaka.sembiring@email.com,081234500011,Sports,Peralatan Golf Set,1,8500000,8500000,2024-09-20,Bank Transfer,Completed,Premium member
+Kartika Sari,kartika.sari@email.com,081234500012,Automotive,Car Audio System,1,3200000,3200000,2024-09-20,Cash,Completed,Professional install
+Lukman Hakim,lukman.hakim@email.com,081234500013,Electronics,Drone DJI Mini 4 Pro,1,9800000,9800000,2024-09-21,Credit Card,Completed,Content creator
+Maya Indira,maya.indira@email.com,081234500014,Fashion,Tas Ransel Kulit Premium,2,980000,1960000,2024-09-21,E-Wallet,Completed,Travel essential
+Nanda Pratiwi,nanda.pratiwi@email.com,081234500015,Food & Beverage,Chocolate Artisan Box,5,320000,1600000,2024-09-22,Bank Transfer,Completed,Gift hamper
+Oscar Pratama,oscar.pratama@email.com,081234500016,Health & Beauty,Supplement Protein Whey,3,580000,1740000,2024-09-22,Credit Card,Completed,Fitness goal
+Putri Nabila,putri.nabila@email.com,081234500017,Sports,Yoga Mat Premium + Accessories,1,750000,750000,2024-09-23,Cash,Completed,Wellness journey
+Qori Annisa,qori.annisa@email.com,081234500018,Electronics,Tablet iPad Pro 12.9,1,16500000,16500000,2024-09-23,Bank Transfer,Completed,Creative work
+Rizal Fauzi,rizal.fauzi@email.com,081234500019,Automotive,Tire Pressure Monitor,4,280000,1120000,2024-09-24,E-Wallet,Completed,Safety upgrade
+Sari Wulandari,sari.wulandari@email.com,081234500020,Fashion,Sepatu Sneakers Limited,1,1800000,1800000,2024-09-24,Credit Card,Completed,Collectors item
+Toni Hermawan,toni.hermawan@email.com,081234500021,Food & Beverage,Coffee Bean Specialty 5kg,1,1200000,1200000,2024-09-25,Bank Transfer,Completed,Cafe supply
+Uci Rahmawati,uci.rahmawati@email.com,081234500022,Health & Beauty,Hair Dryer Professional,1,1800000,1800000,2024-09-25,Cash,Completed,Salon quality
+Vino Bastian,vino.bastian@email.com,081234500023,Sports,Raket Tenis Wilson Pro,1,2200000,2200000,2024-09-26,E-Wallet,Completed,Tournament ready
+Winda Kusuma,winda.kusuma@email.com,081234500024,Electronics,Camera DSLR Canon EOS R6,1,28000000,28000000,2024-09-26,Credit Card,Pending,Professional photography
+Yoga Prasetya,yoga.prasetya@email.com,081234500025,Automotive,Engine Oil Full Synthetic,3,420000,1260000,2024-09-27,Bank Transfer,Completed,Maintenance schedule
+Zara Amelia,zara.amelia@email.com,081234500026,Fashion,Jam Tangan Swiss Made,1,12500000,12500000,2024-09-27,Credit Card,Completed,Luxury timepiece
+Alvin Kurniawan,alvin.kurniawan@email.com,081234500027,Food & Beverage,Paket Makan Sehat 30 Hari,1,1500000,1500000,2024-09-28,E-Wallet,Processing,Diet program
+Bella Safira,bella.safira@email.com,081234500028,Health & Beauty,Parfum Branded Import,2,750000,1500000,2024-09-28,Cash,Completed,Signature scent
+Charlie Anggara,charlie.anggara@email.com,081234500029,Sports,Boxing Gloves Professional,1,850000,850000,2024-09-29,Bank Transfer,Completed,Training gear
+Dina Mariana,dina.mariana@email.com,081234500030,Electronics,Smart Home Security System,1,4200000,4200000,2024-09-29,Credit Card,Completed,Full installation
+Edi Supratman,edi.supratman@email.com,081234500031,Automotive,Car Coating Ceramic,1,2800000,2800000,2024-09-30,E-Wallet,Completed,Paint protection
+Feby Putri,feby.putri@email.com,081234500032,Fashion,Dress Cocktail Designer,1,3500000,3500000,2024-09-30,Bank Transfer,Processing,Made to order
+Galih Permana,galih.permana@email.com,081234500033,Food & Beverage,Paket BBQ Premium,1,980000,980000,2024-10-01,Cash,Completed,Weekend special
+Hani Widyawati,hani.widyawati@email.com,081234500034,Health & Beauty,Face Mask Gold 24K,5,280000,1400000,2024-10-01,Credit Card,Completed,Luxury skincare
+Ivan Saputra,ivan.saputra@email.com,081234500035,Sports,Treadmill Electric,1,12500000,12500000,2024-10-02,Bank Transfer,Pending,Home gym setup
+Jasmine Azzahra,jasmine.azzahra@email.com,081234500036,Electronics,Earbuds Sony WF-1000XM4,1,3200000,3200000,2024-10-02,E-Wallet,Completed,Audiophile choice
+Kevin Pratama,kevin.pratama@email.com,081234500037,Automotive,Car Wash Robot,1,15000000,15000000,2024-10-03,Credit Card,Processing,Automated cleaning
+Lia Aminda,lia.aminda@email.com,081234500038,Fashion,Clutch Bag Crystal,1,1850000,1850000,2024-10-03,Cash,Completed,Evening accessory
+Monica Bellucci,monica.bellucci@email.com,081234500039,Food & Beverage,Pastry Set French,8,180000,1440000,2024-10-04,Bank Transfer,Completed,Patisserie quality
+Nina Marlina,nina.marlina@email.com,081234500040,Health & Beauty,Nail Art Kit Professional,1,650000,650000,2024-10-04,E-Wallet,Completed,Salon standard
+Okta Ramadhan,okta.ramadhan@email.com,081234500041,Sports,Skateboard Complete Set,1,1200000,1200000,2024-10-05,Credit Card,Completed,Street style
+Prilly Latuconsina,prilly.latuconsina@email.com,081234500042,Electronics,Projector 4K Ultra HD,1,8500000,8500000,2024-10-05,Bank Transfer,Completed,Home theater
+Qonita Rahma,qonita.rahma@email.com,081234500043,Automotive,Seat Cover Leather Premium,1,1800000,1800000,2024-10-06,Cash,Completed,Custom fit
+Reza Ahmadi,reza.ahmadi@email.com,081234500044,Fashion,Jas Formal Tailored,1,2500000,2500000,2024-10-06,E-Wallet,Processing,Measurement fitting
+Stella Cornelia,stella.cornelia@email.com,081234500045,Food & Beverage,Tea Collection Premium,4,350000,1400000,2024-10-07,Credit Card,Completed,Connoisseur choice
+Taufik Hidayat,taufik.hidayat@email.com,081234500046,Health & Beauty,Electric Toothbrush,2,580000,1160000,2024-10-07,Bank Transfer,Completed,Dental care
+Ully Trisnawati,ully.trisnawati@email.com,081234500047,Sports,Swimming Goggles Pro,3,420000,1260000,2024-10-08,Cash,Completed,Competition grade
+Vega Antares,vega.antares@email.com,081234500048,Electronics,VR Headset Meta Quest 3,1,7200000,7200000,2024-10-08,E-Wallet,Completed,Next generation
+Wahid Qodir,wahid.qodir@email.com,081234500049,Automotive,Air Freshener Luxury,6,150000,900000,2024-10-09,Credit Card,Completed,Premium fragrance
+Yolanda Putri,yolanda.putri@email.com,081234500050,Fashion,Scarf Silk Handmade,3,680000,2040000,2024-10-09,Bank Transfer,Completed,Artisan quality

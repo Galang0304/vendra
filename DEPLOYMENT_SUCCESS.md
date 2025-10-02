@@ -3,8 +3,9 @@
 ## 📋 INFORMASI DEPLOYMENT
 
 ### 🌐 URL Aplikasi Online
-**Production URL**: https://vendra-lhpvuifh8-galang0304s-projects.vercel.app
+**Production URL (LATEST)**: https://vendra-6dx8hdwgn-galang0304s-projects.vercel.app
 **Previous URLs**: 
+- https://vendra-lhpvuifh8-galang0304s-projects.vercel.app
 - https://vendra-82jqcfvum-galang0304s-projects.vercel.app
 - https://vendra-7ox9uypyv-galang0304s-projects.vercel.app
 

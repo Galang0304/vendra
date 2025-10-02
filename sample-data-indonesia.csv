@@ -1,0 +1,31 @@
+customer_name,email,phone,product_type,product_name,quantity,unit_price,total_amount,transaction_date,payment_method,status,notes
+Andi Wijayanto,andi.wijayanto@gmail.com,081234567890,Electronics,Samsung Galaxy A54,1,4500000,4500000,2024-10-01,OVO,Completed,Cashback 10%
+Siti Rahmawati,siti.rahmawati@yahoo.com,082345678901,Fashion,Hijab Voal Premium,5,85000,425000,2024-10-01,GoPay,Completed,Grosir
+Budi Hartono,budi.hartono@outlook.com,083456789012,Food & Beverage,Nasi Gudeg Yogya,10,25000,250000,2024-10-01,Cash,Completed,Pesanan catering
+Dewi Kartika,dewi.kartika@gmail.com,084567890123,Health & Beauty,Wardah Lightening Series,1,350000,350000,2024-10-02,DANA,Completed,Halal skincare
+Rahman Efendi,rahman.efendi@yahoo.com,085678901234,Automotive,Ban Bridgestone 185/65R15,4,650000,2600000,2024-10-02,Bank Transfer,Completed,Plus balancing
+Maya Sari,maya.sari@gmail.com,086789012345,Sports,Jersey Persib Bandung,2,350000,700000,2024-10-02,ShopeePay,Completed,Bobotoh supporter
+Joko Susilo,joko.susilo@yahoo.com,087890123456,Electronics,Realme 11 Pro,1,3200000,3200000,2024-10-03,Credit Card BCA,Pending,Cicilan 0%
+Lina Marlina,lina.marlina@gmail.com,088901234567,Fashion,Batik Pekalongan Tulis,1,750000,750000,2024-10-03,OVO,Completed,Motif eksklusif
+Agus Salim,agus.salim@outlook.com,089012345678,Food & Beverage,Rendang Padang 1kg,3,125000,375000,2024-10-03,Cash,Completed,Frozen food
+Rina Wulandari,rina.wulandari@gmail.com,081123456789,Health & Beauty,Hanasui Face Toner,2,45000,90000,2024-10-04,GoPay,Completed,Local brand
+Hendra Gunawan,hendra.gunawan@yahoo.com,082234567890,Automotive,Oli Pertamina Enduro 4T,2,45000,90000,2024-10-04,DANA,Completed,Motor service
+Indira Sari,indira.sari@gmail.com,083345678901,Sports,Raket Bulutangkis Victor,1,850000,850000,2024-10-04,Bank Transfer,Completed,Kualitas BWF
+Fajar Nugroho,fajar.nugroho@yahoo.com,084456789012,Electronics,Xiaomi Redmi Note 12,1,2800000,2800000,2024-10-05,ShopeePay,Completed,Flash sale
+Sari Dewi,sari.dewi@gmail.com,085567890123,Fashion,Kemeja Batik Kantor,3,180000,540000,2024-10-05,OVO,Completed,Dress code office
+Dodi Setiawan,dodi.setiawan@outlook.com,086678901234,Food & Beverage,Kue Lebaran Nastar,5,65000,325000,2024-10-05,Cash,Completed,Pre-order Lebaran
+Wati Susanti,wati.susanti@gmail.com,087789012345,Health & Beauty,Emina Bright Stuff,1,125000,125000,2024-10-06,GoPay,Completed,Teen skincare
+Yudi Pratama,yudi.pratama@yahoo.com,088890123456,Sports,Sepatu Futsal Specs,1,450000,450000,2024-10-06,DANA,Completed,Local brand
+Mega Lestari,mega.lestari@gmail.com,089901234567,Electronics,OPPO A78 5G,1,3500000,3500000,2024-10-06,Credit Card Mandiri,Processing,DP 50%
+Bambang Wijaya,bambang.wijaya@yahoo.com,081012345678,Automotive,Aki Mobil GS Astra,1,850000,850000,2024-10-07,Bank Transfer,Completed,Garansi 2 tahun
+Nurul Fadilah,nurul.fadilah@gmail.com,082123456789,Fashion,Mukena Katun Jepang,1,280000,280000,2024-10-07,ShopeePay,Completed,Adem dan lembut
+Ricky Harahap,ricky.harahap@outlook.com,083234567890,Food & Beverage,Kopi Luwak Gayo 250gr,2,185000,370000,2024-10-07,OVO,Completed,Premium coffee
+Ratna Sari,ratna.sari@gmail.com,084345678901,Health & Beauty,Somethinc Hyaluronic,1,89000,89000,2024-10-08,GoPay,Completed,Viral skincare
+Irwan Maulana,irwan.maulana@yahoo.com,085456789012,Sports,Celana Training Diadora,2,280000,560000,2024-10-08,DANA,Completed,Olahraga nyaman
+Lisa Permata,lisa.permata@gmail.com,086567890123,Electronics,Vivo V29e 5G,1,4200000,4200000,2024-10-08,Credit Card BNI,Completed,Portrait camera
+Eko Prasetyo,eko.prasetyo@yahoo.com,087678901234,Automotive,Velg Racing HSR R16,4,1250000,5000000,2024-10-09,Bank Transfer,Pending,Modifikasi mobil
+Diana Putri,diana.putri@gmail.com,088789012345,Fashion,Gamis Syari Ceruty,1,320000,320000,2024-10-09,ShopeePay,Completed,Busana muslim
+Hendri Susanto,hendri.susanto@outlook.com,089890123456,Food & Beverage,Bakso Ikan Tenggiri,20,15000,300000,2024-10-09,Cash,Completed,Frozen food
+Sandra Dewi,sandra.dewi@gmail.com,081901234567,Health & Beauty,Pixy Two Way Cake,1,42000,42000,2024-10-10,OVO,Completed,Makeup lokal
+Rizky Andrian,rizky.andrian@yahoo.com,082012345678,Sports,Bola Futsal Mikasa,1,320000,320000,2024-10-10,GoPay,Completed,Official ball
+Putri Ayu,putri.ayu@gmail.com,083123456789,Electronics,iPhone 13 128GB,1,11500000,11500000,2024-10-10,Credit Card,Completed,Trade-in discount
